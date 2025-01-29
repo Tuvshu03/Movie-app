@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-// type NowPlayingSliderType = {
-//   TMDB_BASE_URL: string,  
-//   TMDB_API_TOKEN:string
-// }
+
 const NowPlayingSlider = () => {
-    // const {TMDB_BASE_URL, TMDB_API_TOKEN} = props
+  
     const  TMDB_BASE_URL = process.env.TMDB_BASE_URL;
     const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 
@@ -22,8 +19,9 @@ const NowPlayingSlider = () => {
               }}
             )
             setNowPlayingData(response.data.result);
+            console.log(response.data.result)
             setLoading(false)
-        }
+        } 
         catch(err){
           setLoading(false);
           if(axios.isAxiosError(err)){
