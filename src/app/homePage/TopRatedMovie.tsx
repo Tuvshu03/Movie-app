@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const NowPlayingSlider = () => {
-  
+const TopRatedMovie = ( ) => {
     const  TMDB_BASE_URL = process.env.TMDB_BASE_URL;
     const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 
@@ -13,15 +12,14 @@ const NowPlayingSlider = () => {
     const getMovieData = async ()=>{
         try{
           setLoading(true)
-            const response = await axios.get(`${TMDB_BASE_URL}/movie/now_playing?language=en-US&page=1`,
+            const response = await axios.get(`${TMDB_BASE_URL}/movie/top_rated?language=en-US&page=1`,
               {headers: {
                 Authorization: `Bearer ${TMDB_API_TOKEN}`,  
               }}
             )
             setNowPlayingData(response.data.result);
-            console.log(response.data.result)
             setLoading(false)
-        } 
+        }
         catch(err){
           setLoading(false);
           if(axios.isAxiosError(err)){
@@ -35,8 +33,8 @@ const NowPlayingSlider = () => {
       getMovieData()
     }, [])
   return (
-    <div>HomePlayingSlider</div>
+    <div>TopRatedMovie</div>
   )
 }
 
-export default NowPlayingSlider
+export default TopRatedMovie

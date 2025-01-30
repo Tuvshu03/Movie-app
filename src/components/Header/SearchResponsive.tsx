@@ -18,7 +18,7 @@ export const SearchResponsive = (props) => {
   const { handleReverse} = props;
   
   return (
-    <div className="flex h-[59px] items-center justify-between bg-background w-full my-3">
+    <div className="flex h-[59px] items-center justify-between bg-background w-full">
       <div className="flex gap-3">
         <Select>
           <SelectTrigger className="w-9 h-9"></SelectTrigger>
