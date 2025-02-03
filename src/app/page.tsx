@@ -1,18 +1,10 @@
 "use client";
 
-import NowPlayingSlider from "@/components/NowPlayingSlider";
-import PopularMovie from "@/components/PopularMovie";
-import UpComing from "@/components/UpComing";
-import TopRatedMovies from "@/components/TopRatedMovies";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { useRouter } from "next/navigation";
+import NowPlayingSlider from "@/components/HomePage/NowPlayingSlider";
+import UpComing from "@/components/HomePage/UpComing";
+import PopularMovie from "@/components/HomePage/PopularMovie";
+import TopRatedMovies from "@/components/HomePage/TopRatedMovies";
+
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const  TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL

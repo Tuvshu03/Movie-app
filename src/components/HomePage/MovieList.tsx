@@ -5,14 +5,11 @@ import { Star } from "lucide-react";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Movie } from "@/app/types/Movie";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -41,8 +38,7 @@ const MovieList = (props: movieView) => {
         }
       );
       setNowPlayingData(response.data.results);
-      console.log(response);
-      console.log("data", response.data.results);
+    
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -78,21 +74,22 @@ const MovieList = (props: movieView) => {
                 push(`/detail/${movie.id}`);
               }}
               key={index}
+              className="bg-secondary"
             >
-              <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-secondary space-y-1 lg:w-[230px]">
+              <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden space-y-1 lg:w-[233px]">
                 <div className="flex flex-col justify-center">
                   <Image
                     src={`${TMDB_IMAGE_SERVICE_URL}/w500${movie.poster_path}`}
                     width={157.5}
                     height={233.1}
                     alt="property image"
-                    className="overflow-hidden rounded-lg"
+                    className="overflow-hidden rounded-lg w-full"
                   />
                   <div className="flex pl-2 mt-2">
                     <Star color="#fde047"
                     fill="#fde047"
                     className="bg-yellow"/> 
-                    {movie.vote_average}/10
+                    <span>{movie.vote_average}/10</span>
                   </div>
                  <div className="w-full text-sm overflow-hidden pl-2 mb-2 mt-1"> {movie.title}</div>
                 </div>
