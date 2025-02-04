@@ -53,7 +53,8 @@ export const SearchResponsive = (props) => {
     <div className="flex h-[59px] items-center justify-between bg-background w-full">
       <div className="flex gap-3">
         <Select>
-          <SelectTrigger className="w-9 h-9"></SelectTrigger>
+          <SelectTrigger className="w-9 h-9">
+          </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectLabel></SelectLabel>
@@ -61,6 +62,7 @@ export const SearchResponsive = (props) => {
             </SelectGroup>
           </SelectContent>
         </Select>
+        
         <div className="flex h-9 w-full items-center rounded-md border-black">
           <Search/>
           <Input placeholder="Search"

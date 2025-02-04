@@ -11,25 +11,24 @@ const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 type MovieId = {
-  id: number;
+  movieId: number;
 };
 
 const Trailer = (props:MovieId) => {
-    const {id} = props;
+    const {movieId} = props;
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [movieDetail, setMovieDetail] = useState<MovieDetail | any>({});
-  
+  // console.log("abse url", TMDB_BASE_URL);
+  // console.log("amovie id ", movieId);
+  // console.log("atoken", TMDB_API_TOKEN);
 
   const getMovieData = async () => {
-    console.log("bse url", TMDB_BASE_URL);
-    console.log("movie id ", id);
-    console.log("token", TMDB_API_TOKEN);
 
     try {
       setLoading(true);
       const response = await axios.get(
-        `${TMDB_BASE_URL}/movie/${id}/credits?language=en-US`,
+        `${TMDB_BASE_URL}/movie/${movieId}/credits?language=en-US`,
         {
           headers: {
             Authorization: `Bearer ${TMDB_API_TOKEN}`,

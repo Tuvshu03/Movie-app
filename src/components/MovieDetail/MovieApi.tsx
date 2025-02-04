@@ -9,28 +9,24 @@ import PartPeople from "./PartPeople";
 import MoreLike from "./MoreLike";
 import Trailer from "./Trailer";
 
-
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 type MovieId = {
-  id: number;
+  movieId: number;
 };
 
 const MovieApi = (props: MovieId) => {
-  
-  const { id } = props;
+  const { movieId } = props;
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [movieDetail, setMovieDetail] = useState<MovieDetail | any>({});
-
   const getMovieData = async () => {
-
     try {
       setLoading(true);
       const response = await axios.get(
-        `${TMDB_BASE_URL}/movie/${id}?language=en-US`,
+        `${TMDB_BASE_URL}/movie/${movieId}?language=en-US`,
         {
           headers: {
             Authorization: `Bearer ${TMDB_API_TOKEN}`,
@@ -56,7 +52,7 @@ const MovieApi = (props: MovieId) => {
 
   return (
     <div>
-      {movieDetail.id ? (
+      {!movieDetail.movieId ? (
         <div>
           <div className="mt-8 mb-4 px-5 flex justify-between lg:mt-[52px] lg:mb-6 lg:px-0">
             <div className="space-y-1">
@@ -83,7 +79,7 @@ const MovieApi = (props: MovieId) => {
             </div>
           </div>
           <div className="flex gap-x-8 mb-8">
-            <div className="overflow-hidden relative hidden lg:block w-[290px] h-[428px] rounded">
+            <div className="overflow-hmovieIdden relative hmovieIdden lg:block w-[290px] h-[428px] rounded">
               <Image
                 src={`${TMDB_IMAGE_SERVICE_URL}/w500${movieDetail.poster_path}`}
                 width={290}
@@ -115,22 +111,22 @@ const MovieApi = (props: MovieId) => {
           <div className="px-5 lg:px-0">
             <div className="flex gap-x-[34px] lg:block">
               <div className="relative overflow-hidden block w-[100px] h-[148px] rounded shrink-0 lg:hidden">
-              <Image
-                src={`${TMDB_IMAGE_SERVICE_URL}/w500${movieDetail.poster_path}`}
-                width={290}
-                height={428}
-                alt="property image"
-                className="overflow-hidden"
-              />
+                <Image
+                  src={`${TMDB_IMAGE_SERVICE_URL}/w500${movieDetail.poster_path}`}
+                  width={290}
+                  height={428}
+                  alt="property image"
+                  className="overflow-hidden"
+                />
               </div>
               <div className="space-y-5 mb-5">
                 dsfasdfdds
                 <p>{movieDetail.overview}</p>
               </div>
             </div>
-              <PartPeople id={id}/>
-              <MoreLike id={id}/>
-              <Trailer id={ id}/>
+            <PartPeople movieId={movieId}/>
+            <MoreLike movieId={movieId}/>
+            <Trailer movieId={ movieId}/>
           </div>
         </div>
       ) : (

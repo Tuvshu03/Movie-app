@@ -63,7 +63,9 @@ const MovieList = (props: movieView) => {
     <div className="w-full justify-center">
       <div className="flex justify-between mb-9 mt-8">
         <div>{name}</div>
-        <div>See more</div>
+        <div onClick={()=>{
+          push(`/${endpoint}`)
+        }}>See more</div>
       </div>
       <div className="flex flex-wrap gap-10 ">
       {nowPlayingData.length > 0 &&

@@ -11,25 +11,22 @@ const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 type MovieId = {
-  id: number;
+  movieId: number;
 };
 
 const PartPeople = (props:MovieId) => {
-    const {id} = props;
+    const {movieId} = props;
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [movieDetail, setMovieDetail] = useState<MovieDetail | any>({});
   
 
   const getMovieData = async () => {
-    console.log("abse url", TMDB_BASE_URL);
-    console.log("amovie id ", id);
-    console.log("atoken", TMDB_API_TOKEN);
 
     try {
       setLoading(true);
       const response = await axios.get(
-        `${TMDB_BASE_URL}/movie/${id}/credits?language=en-US`,
+        `${TMDB_BASE_URL}/movie/${movieId}/credits?language=en-US`,
         {
           headers: {
             Authorization: `Bearer ${TMDB_API_TOKEN}`,
@@ -37,7 +34,8 @@ const PartPeople = (props:MovieId) => {
         }
       );
       setMovieDetail(response.data);
-      console.log("detail", response.data)
+      // console.log("response", response)
+      // console.log("detail", response.data)
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -55,12 +53,16 @@ const PartPeople = (props:MovieId) => {
   }, []);
   return (
     <div>
-        <div>Director</div>
+      {!movieDetail.movieId ? (
+        <div>     
+          <div>Director{}</div>
         <hr/>
-        <div>Writer</div>
+        <div>Writer {}</div>
         <hr/>
-        <div>Stars</div>
-        <hr/>
+        <div>Stars{}</div>
+        <hr/></div>
+      ):( <div>Loading</div>)}
+   
     </div>
   )
 }

@@ -11,11 +11,11 @@ const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 type MovieId = {
-  id: number;
+  movieId: number;
 };
 
 const MoreLike = (props:MovieId) => {
-    const {id} = props;
+    const {movieId} = props;
      const { push } = useRouter();
      const [error, setError] = useState<string>("");
      const [loading, setLoading] = useState<boolean>(false);
@@ -25,7 +25,7 @@ const MoreLike = (props:MovieId) => {
        try {
          setLoading(true);
          const response = await axios.get(
-           `${TMDB_BASE_URL}/movie/${id}/similar?language=en-US&page=1`,
+           `${TMDB_BASE_URL}/movie/${movieId}/similar?language=en-US&page=1`,
            {
              headers: {
                Authorization: `Bearer ${TMDB_API_TOKEN}`,
@@ -50,9 +50,6 @@ const MoreLike = (props:MovieId) => {
        getMovieData();
      }, []);
    
-     if (loading) {
-       <div>Loading</div>;
-     }
   return (
 <div className="w-full justify-center">
       <div className="flex justify-between mb-9 mt-8">
