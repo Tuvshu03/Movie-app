@@ -17,7 +17,7 @@ const Page = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${TMDB_BASE_URL} /movie/${movieId}?language=en-US`,
+          `${TMDB_BASE_URL}/movie/${movieId}?language=en-US`,
           {
             headers: {
               Authorization: `Bearer ${TMDB_API_TOKEN}`,

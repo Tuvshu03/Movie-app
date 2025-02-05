@@ -52,7 +52,7 @@ const NowPlayingSlider = () => {
   }, []);
 
   return (
-    <div className="justify-center ">
+    <div className="">
       <Carousel className="">
         <CarouselContent className="">
           {nowPlayingData.slice(10, 18).map((movie, index) => (
