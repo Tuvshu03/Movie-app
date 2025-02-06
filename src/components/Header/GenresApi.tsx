@@ -9,6 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuItem,
 } from "../ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -18,6 +19,7 @@ type Genres = {
 };
 
 const GenresApi = () => {
+  const {push} = useRouter()
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [nowPlayingData, setNowPlayingData] = useState<Genres[]>([]);
@@ -67,9 +69,10 @@ const GenresApi = () => {
               return (
                 <div className="flex rounded-full items-center border">
                   <DropdownMenuItem
+                  onClick={()=>{push(`/genre`)}}
                     key={index}
                     className="text-sx"
-                    value="name"
+                    value={movie.name}
                   >
                     {movie.name}
                   </DropdownMenuItem>

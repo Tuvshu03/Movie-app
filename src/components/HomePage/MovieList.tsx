@@ -61,13 +61,13 @@ const MovieList = (props: movieView) => {
 
   return (
     <div className="w-full justify-center">
-      <div className="flex justify-between mb-9 mt-8">
+      <div className="flex justify-between  mb-9 mt-8 w-[100%]">
         <div>{name}</div>
         <div onClick={()=>{
           push(`/${endpoint}`)
         }}>See more</div>
       </div>
-      <div className="flex flex-wrap gap-10 ">
+      <div className="flex flex-wrap gap-4">
       {nowPlayingData.length > 0 &&
         nowPlayingData.map((movie, index) => {
           return (
@@ -78,12 +78,12 @@ const MovieList = (props: movieView) => {
               key={index}
               className="bg-secondary"
             >
-              <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden space-y-1 lg:w-[233px]">
+              <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden lg:w-[233px]">
                 <div className="flex flex-col justify-center">
                   <Image
-                    src={`${TMDB_IMAGE_SERVICE_URL}/w500${movie.poster_path}`}
+                    src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
                     width={157.5}
-                    height={233.1}
+                    height={230}
                     alt="property image"
                     className="overflow-hidden rounded-lg w-full"
                   />

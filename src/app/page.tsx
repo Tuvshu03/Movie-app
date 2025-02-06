@@ -12,9 +12,9 @@ const  TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL
 export default function Home() {
 
   return (
-    <div className="flex flex-col w-screen h-screen">
+    <div className="flex flex-col w-screen">
       <NowPlayingSlider />
-      <div className="mx-5">
+      <div className="px-[500px]">
       <UpComing/>
       <PopularMovie/>
       <TopRatedMovies/>

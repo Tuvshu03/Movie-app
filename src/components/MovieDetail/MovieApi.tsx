@@ -79,9 +79,9 @@ const MovieApi = (props: MovieId) => {
             </div>
           </div>
           <div className="flex gap-x-8 mb-8">
-            <div className="overflow-hmovieIdden relative hmovieIdden lg:block w-[290px] h-[428px] rounded">
+            <div className="overflow-hidden relative hidden lg:block w-[290px] h-[428px] rounded">
               <Image
-                src={`${TMDB_IMAGE_SERVICE_URL}/w500${movieDetail.poster_path}`}
+                src={`${TMDB_IMAGE_SERVICE_URL}/original/${movieDetail.poster_path}`}
                 width={290}
                 height={428}
                 alt="property image"
@@ -91,21 +91,21 @@ const MovieApi = (props: MovieId) => {
             <div className="relative">
               <div className="relative overflow-hidden w-[375px] lg:w-[760px] h-[211px] lg:h-[428px] lg:rounded">
                 <Image
-                  src={`${TMDB_IMAGE_SERVICE_URL}/w500${movieDetail.backdrop_path}`}
+                  src={`${TMDB_IMAGE_SERVICE_URL}/original/${movieDetail.backdrop_path}`}
                   width={760}
                   height={428}
                   alt="property image"
                   className="overflow-hidden"
                 />
               </div>
-              <div className="absolute left-6 bottom-6 z-20">
+              {/* <div className="absolute left-6 bottom-6 z-20">
                 <Button className="bg-inherit">
                   <div className="bg-white w-[40px] h-[40px] rounded-full pl-3 pt-3">
                     <Play color="black" />
                   </div>
                   <div>Play trailer 1:30</div>
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="px-5 lg:px-0">
