@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { MovieDetail } from "../types/MovieDetail";
+
 type Genres = {
   id: number;
   name: string;

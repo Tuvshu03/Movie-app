@@ -7,6 +7,7 @@ import { SearchResponsive } from "./SearchResponsive";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
 import GenresApi from "./GenresApi";
+import SearchBar from "../SearchBar";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -37,10 +38,7 @@ const Header = () => {
           </div>
           <div className="gap-4 hidden lg:flex">
             <GenresApi/>
-            <div className="relative text-muted-foreground w-[379px] ">
-              <Search className="absolute top-2.5 left-2.5 w-4 h-4"/>
-              <Input placeholder="Search" className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-[38px]"></Input>
-            </div>
+            <SearchBar/>
           </div>
           <div className="flex items-center gap-3">
             <div className="sm:hidden">

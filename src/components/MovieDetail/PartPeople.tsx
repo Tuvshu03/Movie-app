@@ -34,8 +34,8 @@ const PartPeople = (props:MovieId) => {
         }
       );
       setMovieDetail(response.data);
-      // console.log("response", response)
-      // console.log("detail", response.data)
+      console.log("response", response)
+      console.log("detail", response.data)
       setLoading(false);
     } catch (err) {
       console.log(err);

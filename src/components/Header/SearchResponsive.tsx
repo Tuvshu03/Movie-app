@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../ui/button";
-import { Search, X, ChevronRight, ChevronDown } from "lucide-react";
-import { Input } from "../ui/input";
+import {X} from "lucide-react";
 import GenresApi from "./GenresApi";
+import SearchBar from "../SearchBar";
 
-
-export const SearchResponsive = (props) => {
+export const SearchResponsive = (props:any) => {
   const { handleReverse } = props;
 
   return (
     <div className="flex  items-center justify-between bg-background w-full">
       <div className="flex gap-3">
-        <GenresApi/>
-        <div className="flex h-9 w-full items-center rounded-md border-black">
-          <Search />
-          <Input placeholder="Search" className="output-none" />
-        </div>
+        <GenresApi />
+        <SearchBar />
       </div>
       <Button
         onClick={handleReverse}

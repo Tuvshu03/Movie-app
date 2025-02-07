@@ -10,14 +10,11 @@ type MovieId = {
   movieId: number;
 };
 
-const Trailer = (props:MovieId) => {
-    const {movieId} = props;
+const Trailer = (props: MovieId) => {
+  const { movieId } = props;
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [movieDetail, setMovieDetail] = useState<MovieDetail | any>({});
-  console.log("abse url", TMDB_BASE_URL);
-  console.log("amovie id ", movieId);
-  console.log("atoken", TMDB_API_TOKEN);
+  const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
 
   const getMovieData = async () => {
     try {
@@ -30,8 +27,16 @@ const Trailer = (props:MovieId) => {
           },
         }
       );
-      setMovieDetail(response.data);
-      console.log("fadsfas",response)
+      if (response.data.results.length > 0) {
+        const trailer = response.data.results.find(
+          (video: any) => video.type === "Trailer"
+        );
+        if (trailer) {
+          setTrailerUrl(`https://www.youtube.com/embed/${trailer.key}`);
+        }
+      } else {
+        setError("Trailer not available for this movie.");
+      }
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -46,10 +51,29 @@ const Trailer = (props:MovieId) => {
 
   useEffect(() => {
     getMovieData();
-  }, []);
-  return (
-    <div>Trailer</div>
-  )
-}
+  }, [movieId]);
 
-export default Trailer
+  return (
+    <div className="z-30">
+      {loading && <p>Loading trailer...</p>}
+      {error && <p>Error: {error}</p>}
+      {trailerUrl ? (
+        <div>
+          <iframe
+            width="560"
+            height="315"
+            src={trailerUrl}
+            title="Movie Trailer"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      ) : (
+        !loading && <p>No trailer available for this movie.</p>
+      )}
+    </div>
+  );
+};
+
+export default Trailer;
