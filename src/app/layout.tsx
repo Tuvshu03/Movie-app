@@ -23,12 +23,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="mx-5">
+          
             <Header />
-          </div>
-
-          {children}
-          <Footer />
+            {children}
+            <Footer />
         </ThemeProvider>
       </body>
     </html>

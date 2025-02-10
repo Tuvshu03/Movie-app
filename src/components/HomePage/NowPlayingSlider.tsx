@@ -52,66 +52,64 @@ const NowPlayingSlider = () => {
   }, []);
 
   return (
-    <div className="">
-      <Carousel className="">
-        <CarouselContent className="">
-          {nowPlayingData.slice(10, 18).map((movie, index) => (
-            <CarouselItem key={index}>
-              <div className=" w-full ">
-                <Card>
-                  <CardContent className="p-0">
-                    <div className="relative w-full p-0">
-                      <Image
-                        src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.backdrop_path}`}
-                        width={1000}
-                        height={100}
-                        alt="property image"
-                        className="overflow-hidden w-full h-full"
-                        onClick={() => {
-                          push(`/detail/${movie.id}`);
-                        }}
-                      />
-                      <div className="static text-foreground lg:absolute lg:top-1/2 lg:left-[140px] lg:-translate-y-1/2 lg:text-white z-10">
-                        <div className="p-5 space-y-4 lg:p-0">
-                          <div className="flex justify-between lg:flex-col lg:space-y-1">
-                            <div className="">
-                              <h4>Now Playing:</h4>
-                              <h3>{movie.title}</h3>
-                            </div>
-                            <div className="flex items-center gap-x-1">
-                              <Star
-                                color="#fde047"
-                                fill="#fde047"
-                                className="bg-yellow w-[28px] h-[28px]"
-                              />
-                              <div className="font-medium">
-                                <div className="text-foreground text-sm lg:text-white">
-                                  {movie.vote_average}
-                                </div>
-                                <div className="text-muted-foreground text-xs">
-                                  10
-                                </div>
+    <Carousel className="">
+      <CarouselContent className="">
+        {nowPlayingData.slice(10, 18).map((movie, index) => (
+          <CarouselItem key={index}>
+            <div className=" w-full ">
+              <Card>
+                <CardContent className="p-0">
+                  <div className="relative w-full p-0">
+                    <Image
+                      src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.backdrop_path}`}
+                      width={600}
+                      height={600}
+                      alt="property image"
+                      className="w-full h-[600px] overflow-hidden object-cover"
+                      onClick={() => {
+                        push(`/detail/${movie.id}`);
+                      }}
+                    />
+                    <div className="static text-foreground lg:absolute lg:top-1/2 lg:left-[140px] lg:-translate-y-1/2 lg:text-white z-10">
+                      <div className="p-5 space-y-4 lg:p-0">
+                        <div className="flex justify-between lg:flex-col lg:space-y-1">
+                          <div className="">
+                            <h4>Now Playing:</h4>
+                            <h3>{movie.title}</h3>
+                          </div>
+                          <div className="flex items-center gap-x-1">
+                            <Star
+                              color="#fde047"
+                              fill="#fde047"
+                              className="bg-yellow w-[28px] h-[28px]"
+                            />
+                            <div className="font-medium">
+                              <div className="text-foreground text-sm lg:text-white">
+                                {movie.vote_average}
+                              </div>
+                              <div className="text-muted-foreground text-xs">
+                                10
                               </div>
                             </div>
                           </div>
-                          <p className="w-[302px] text-sm line-clamp-5">
-                            {movie.overview}
-                          </p>
-                          <Button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2">
-                            <Play />
-                            <h4 className="text-sm">Watch Trailer</h4>
-                          </Button>
                         </div>
+                        <p className="w-[302px] text-sm line-clamp-5">
+                          {movie.overview}
+                        </p>
+                        <Button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2">
+                          <Play />
+                          <h4 className="text-sm">Watch Trailer</h4>
+                        </Button>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   );
 };
 

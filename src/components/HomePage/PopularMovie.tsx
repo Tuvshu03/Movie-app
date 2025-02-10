@@ -5,9 +5,7 @@ const PopularMovie = () => {
   const name = "Popular";
   const endpoint = "popular";
   return (
-    <div>
       <MovieList name={name} endpoint={endpoint} />
-    </div>
   );
 };
 

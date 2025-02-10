@@ -53,7 +53,6 @@ const MovieApi = (props: MovieId) => {
 
   return (
     <div className="page-detail text-foreground">
-      <Trailer movieId={movieId} />
       {!movieDetail.movieId ? (
         <div className="justify-center ">
           <div className="mt-8 mb-4 px-5 flex justify-between lg:mt-[52px] lg:mb-6 lg:px-0">
@@ -138,7 +137,8 @@ const MovieApi = (props: MovieId) => {
               </div>
             </div>
             <PartPeople movieId={movieId} />
-            <MoreLike movieId={movieId} />
+            <Trailer movieId={movieId} />
+            <MoreLike movieId={movieId} /> 
           </div>
         </div>
       ) : (

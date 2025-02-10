@@ -56,54 +56,57 @@ const MovieList = (props: movieView) => {
   }
 
   return (
-    <div className="w-full justify-center">
-      <div className="flex justify-between  mb-9 mt-8 w-[100%]">
-        <div>{name}</div>
+    <div className="w-full max-w-7xl justify-center p-0">
+      <div className="flex justify-between mb-9 mt-8 w-full">
+        <div className="text-3xl  font-semibold">{name}</div>
         <div
           onClick={() => {
             push(`/${endpoint}`);
           }}
           className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2"
         >
-          see more
+          See more
           <ArrowRight />
         </div>
       </div>
-      <div className="flex flex-wrap gap-4">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 justify-center">
         {nowPlayingData.length > 0 &&
           nowPlayingData.map((movie, index) => {
             return (
-              <Card
-                onClick={() => {
-                  push(`/detail/${movie.id}`);
-                }}
+              <div
                 key={index}
-                className="bg-secondary"
+                className="flex justify-center col-span-1"
               >
-                <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden lg:w-[233px]">
-                  <div className="flex flex-col justify-center">
-                    <Image
-                      src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
-                      width={157.5}
-                      height={230}
-                      alt="property image"
-                      className="overflow-hidden rounded-lg w-full"
-                    />
-                    <div className="flex pl-2 mt-2">
-                      <Star
-                        color="#fde047"
-                        fill="#fde047"
-                        className="bg-yellow"
+                <Card
+                  onClick={() => {
+                    push(`/detail/${movie.id}`);
+                  }}
+                  className="w-[157.5px] lg:w-[233px]"
+                >
+                  <CardContent className="p-0 w-full bg-zinc-500 overflow-hidden rounded-lg bg-hidden bg-secondary">
+                    <div className="flex flex-col justify-center">
+                      <Image
+                        src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
+                        width={157.5}
+                        height={233}
+                        alt="property image"
+                        className="overflow-hidden rounded-lg w-full"
                       />
-                      <span>{movie.vote_average}/10</span>
+                      <div className="flex pl-2 mt-2">
+                        <Star
+                          color="#fde047"
+                          fill="#fde047"
+                          className="bg-yellow"
+                        />
+                        <span>{movie.vote_average}/10</span>
+                      </div>
+                      <div className="w-full text-sm overflow-hidden pl-2 mb-2 mt-1">
+                        {movie.title}
+                      </div>
                     </div>
-                    <div className="w-full text-sm overflow-hidden pl-2 mb-2 mt-1">
-                      {" "}
-                      {movie.title}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </div>
             );
           })}
       </div>

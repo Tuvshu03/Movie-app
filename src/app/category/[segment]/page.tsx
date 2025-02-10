@@ -1,9 +1,13 @@
-"use client"
+"use client";
 import React from "react";
 import { useParams } from "next/navigation";
-const Page = () => {
+import MovieList from "@/components/HomePage/MovieList";
+const Page = (props:string) => {
+  const {endpoints} = props
   const params = useParams();
-  console.log(params.id)
-  return <div>Category Page {params.id}</div>;
+  console.log(params.segment);
+  return <div>Category Page {params.segment}
+  <MovieList endpoints={params.segment}/>
+  </div>;
 };
 export default Page;

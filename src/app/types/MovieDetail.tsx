@@ -2,7 +2,6 @@ export type MovieDetail = {
     adult: boolean;
     backdrop_path: string | null;
     budget: number;
-    // genres: Genre[];
     homepage: string;
     id: number;
     imdb_id: string;

@@ -1,14 +1,10 @@
-import React from 'react'
+import React from "react";
 import MovieList from "./MovieList";
 
 const UpComing = () => {
-    const name = "Upcoming";
-    const endpoint = "upcoming"
-  return (
-    <div>
-        <MovieList name={name} endpoint={endpoint} />
-    </div>
-  )
-}
+  const name = "Upcoming";
+  const endpoint = "upcoming";
+  return <MovieList name={name} endpoint={endpoint} />;
+};
 
-export default UpComing
+export default UpComing;

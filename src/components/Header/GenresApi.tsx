@@ -19,7 +19,7 @@ type Genres = {
 };
 
 const GenresApi = () => {
-  const {push} = useRouter()
+  const { push } = useRouter();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [nowPlayingData, setNowPlayingData] = useState<Genres[]>([]);
@@ -54,7 +54,7 @@ const GenresApi = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="w-9 h-9 border flex justify-center items-center lg:w-[97px] lg:h-[36px] lg:py-4 lg:px-2 gap-2 rounded-md">
-        <ChevronDown className="w-4 h-4"/>
+        <ChevronDown className="w-4 h-4" />
         <div className="hidden lg:block">Genres</div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-5 w-[335px] lg:justifty-center sm:w-[577px]">
@@ -67,9 +67,14 @@ const GenresApi = () => {
           <div className="flex flex-wrap items-start gap-4">
             {nowPlayingData?.map((movie, index) => {
               return (
-                <div className="flex rounded-full items-center border">
+                <div
+                  key={index}
+                  className="flex rounded-full items-center border"
+                >
                   <DropdownMenuItem
-                  onClick={()=>{push(`/genre`)}}
+                    onClick={() => {
+                      push(`/genre`);
+                    }}
                     key={index}
                     className="text-sx"
                     value={movie.name}
