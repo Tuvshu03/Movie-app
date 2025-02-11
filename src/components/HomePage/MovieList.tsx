@@ -61,7 +61,7 @@ const MovieList = (props: movieView) => {
         <div className="text-3xl  font-semibold">{name}</div>
         <div
           onClick={() => {
-            push(`/${endpoint}`);
+            push(`/category/${endpoint}`);
           }}
           className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2"
         >
@@ -81,9 +81,9 @@ const MovieList = (props: movieView) => {
                   onClick={() => {
                     push(`/detail/${movie.id}`);
                   }}
-                  className="w-[157.5px] lg:w-[233px]"
+                  className="w-[157.5px] lg:w-[233px] bg-secondary"
                 >
-                  <CardContent className="p-0 w-full bg-zinc-500 overflow-hidden rounded-lg bg-hidden bg-secondary">
+                  <CardContent className="p-0 w-full bg-zinc-500 overflow-hidden rounded-lg bg-hidden">
                     <div className="flex flex-col justify-center">
                       <Image
                         src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}

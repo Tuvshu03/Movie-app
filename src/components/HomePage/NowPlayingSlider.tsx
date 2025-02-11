@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Star, Play } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import Image from "next/image";
 import { MovieDetail } from "@/app/types/MovieDetail";
 import { Button } from "../ui/button";
@@ -47,6 +41,7 @@ const NowPlayingSlider = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     getMovieData();
   }, []);
@@ -54,7 +49,7 @@ const NowPlayingSlider = () => {
   return (
     <Carousel className="">
       <CarouselContent className="">
-        {nowPlayingData.slice(10, 18).map((movie, index) => (
+        {nowPlayingData.slice(0, 8).map((movie, index) => (
           <CarouselItem key={index}>
             <div className=" w-full ">
               <Card>
@@ -66,6 +61,7 @@ const NowPlayingSlider = () => {
                       height={600}
                       alt="property image"
                       className="w-full h-[600px] overflow-hidden object-cover"
+                      priority
                       onClick={() => {
                         push(`/detail/${movie.id}`);
                       }}

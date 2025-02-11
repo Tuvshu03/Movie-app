@@ -16,7 +16,6 @@ const PartPeople = (props: MovieId) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [movieDetail, setMovieDetail] = useState<MovieDetail | any>({});
 
-
   const getMovieData = async () => {
     try {
       setLoading(true);
@@ -28,9 +27,9 @@ const PartPeople = (props: MovieId) => {
           },
         }
       );
-      setMovieDetail(response.data)
-      console.log("response", response.data);
-     
+      setMovieDetail(response.data);
+      console.log("response", response.data);a
+
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -46,32 +45,48 @@ const PartPeople = (props: MovieId) => {
   useEffect(() => {
     getMovieData();
   }, []);
+  console.log("sad", movieDetail.crew)
+  console.log("happy", movieDetail.cast)
+  console.log(movieDetail.movieId);
+  
   return (
     <div>
       {!movieDetail.movieId ? (
         <div>
-          <div>
-            <div className="">Director</div>
+          {/* <div>
+          <div className="">Director</div>
             {Array.isArray(movieDetail?.crew) &&
-              movieDetail.length > 0 && movieDetail.crew.filter((crew)=>{
-                
-              }).map((director:any)=>{
+              movieDetail.length > 0 && 
+              const director = movieDetail.crew.filter(movieDetail.crew.known_for_department==="Directing")
+
+              director.map((direct:any)=>{
                 return (
-                  <div key={director.id} className="">{director.name}</div>
+                  <div key={direct.id} className="">{direct.name}</div>
                 )
               })}
           </div>
           <hr />
-          <div>Writer</div>
+          <div>
+            <div className="">Writer</div>
+            {Array.isArray(movieDetail?.crew) &&
+              movieDetail.length > 0 && 
+              const writer === movieDetail.crew.filter(movieDetail.crew.known_for_department==="Writing")
+
+              writer.slice(0, 2).map((write:any)=>{
+                return (
+                  <div key={write.id} className="">{write.name}</div>
+                )
+              })}
+          </div> */}
           <hr />
           <div>
             <div className="">Stars</div>
-            {Array.isArray(movieDetail?.cast) &&
-              movieDetail.length > 0 &&
+            {
+            Array.isArray(movieDetail?.crew) && movieDetail.length > 0 &&
               movieDetail.cast.slice(0, 3).map((cast: any) => {
                 return (
-                  <div key={cast.id} className=""> 
-                    {cast.name}
+                  <div key={cast.id} className="">
+                   sdfads
                   </div>
                 );
               })}

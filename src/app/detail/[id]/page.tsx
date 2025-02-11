@@ -9,7 +9,7 @@ type detail = {
 const Page = (movieId: detail) => {
   const params = useParams();
   return (
-    <div>
+    <div className="flex justify-center">
       <MovieApi movieId={params.id} />
     </div>
   );

@@ -2,12 +2,16 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import MovieList from "@/components/HomePage/MovieList";
-const Page = (props:string) => {
-  const {endpoints} = props
+type MovieName = {
+  endpoint: string,
+  name:string
+};
+const Page = (props: MovieName) => {
   const params = useParams();
-  console.log(params.segment);
-  return <div>Category Page {params.segment}
-  <MovieList endpoints={params.segment}/>
-  </div>;
+  return (
+    <div className="flex justify-center">
+      <MovieList endpoint={params.segment} />
+    </div>
+  );
 };
 export default Page;

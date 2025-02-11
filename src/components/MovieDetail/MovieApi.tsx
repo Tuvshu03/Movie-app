@@ -5,7 +5,7 @@ import { Star, Play } from "lucide-react";
 import { MovieDetail } from "@/app/types/MovieDetail";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import PartPeople from "./PartPeople";
+// import PartPeople from "./PartPeople";
 import MoreLike from "./MoreLike";
 import Trailer from "./Trailer";
 
@@ -22,6 +22,7 @@ const MovieApi = (props: MovieId) => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [movieDetail, setMovieDetail] = useState<MovieDetail | any>({});
+  const [trailerShow, setTrailerShow] = useState<boolean>(false);
   const getMovieData = async () => {
     try {
       setLoading(true);
@@ -34,7 +35,6 @@ const MovieApi = (props: MovieId) => {
         }
       );
       setMovieDetail(response.data);
-      console.log("ssad", response.data);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -51,10 +51,20 @@ const MovieApi = (props: MovieId) => {
     getMovieData();
   }, []);
 
+  const handleTrailer = () => {
+    if (trailerShow === false) {
+      setTrailerShow(true);
+    }
+    else{
+      setTrailerShow(false)
+    }
+  };
+
   return (
-    <div className="page-detail text-foreground">
+    <div className="page-detail text-foreground ">
+      {/* <Trailer movieId={movieId} trailerShow={trailerShow} /> */}
       {!movieDetail.movieId ? (
-        <div className="justify-center ">
+        <div className="max-w-7xl">
           <div className="mt-8 mb-4 px-5 flex justify-between lg:mt-[52px] lg:mb-6 lg:px-0">
             <div className="space-y-1">
               <h1 className="break-words text-2xl font-bold w-52 lg:w-fit lg:text-4xl">
@@ -100,14 +110,15 @@ const MovieApi = (props: MovieId) => {
                 />
                 <div className="absolute inset-0 z-10 transition-all duration-300 group-hover:bg-primary/30"></div>
               </div>
-              <div className="absolute left-6 bottom-6 z-20">
-                <Button className="bg-inherit">
-                  <div className="bg-white w-[40px] h-[40px] rounded-full pl-3 pt-3">
-                    <Play color="black" />
-                  </div>
-                  <div>Play trailer 1:30</div>
-                </Button>
-              </div>
+              <Button
+                onClick={handleTrailer}
+                className="bg-inherit absolute left-6 bottom-6 z-30 cursor-pointer"
+              >
+                <div className="bg-white w-[40px] h-[40px] rounded-full pl-3 pt-3">
+                  <Play color="black" />
+                </div>
+                <div>Play trailer 1:30</div>
+              </Button>
             </div>
           </div>
           <div className="px-5 lg:px-0">
@@ -127,7 +138,10 @@ const MovieApi = (props: MovieId) => {
                     movieDetail.genres.length > 0 &&
                     movieDetail.genres.map((genre: any) => {
                       return (
-                        <div key={genre.id} className="inline-flex items-center border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground rounded-full text-xs">
+                        <div
+                          key={genre.id}
+                          className="inline-flex items-center border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground rounded-full text-xs"
+                        >
                           {genre.name}
                         </div>
                       );
@@ -136,9 +150,8 @@ const MovieApi = (props: MovieId) => {
                 <p>{movieDetail.overview}</p>
               </div>
             </div>
-            <PartPeople movieId={movieId} />
-            <Trailer movieId={movieId} />
-            <MoreLike movieId={movieId} /> 
+            {/* <PartPeople movieId={movieId} /> */}
+            <MoreLike movieId={movieId} />
           </div>
         </div>
       ) : (

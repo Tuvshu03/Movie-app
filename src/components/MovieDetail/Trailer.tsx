@@ -1,17 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { MovieDetail } from "@/app/types/MovieDetail";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 
 type MovieId = {
   movieId: number;
+  trailerShow: boolean;
 };
 
 const Trailer = (props: MovieId) => {
-  const { movieId } = props;
+  const { movieId, trailerShow } = props;
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
@@ -27,10 +27,12 @@ const Trailer = (props: MovieId) => {
           },
         }
       );
+
       if (response.data.results.length > 0) {
         const trailer = response.data.results.find(
           (video: any) => video.type === "Trailer"
         );
+
         if (trailer) {
           setTrailerUrl(`https://www.youtube.com/embed/${trailer.key}`);
         }
@@ -48,32 +50,37 @@ const Trailer = (props: MovieId) => {
       setLoading(false);
     }
   };
-
+  const id = movieId;
   useEffect(() => {
     getMovieData();
-  }, [movieId]);
+  }, [id]);
 
   return (
-    <div className="z-30">
-      {loading && <p>Loading trailer...</p>}
-      {error && <p>Error: {error}</p>}
-      {trailerUrl ? (
-        <div>
-          <iframe
-            width="560"
-            height="315"
-            src={trailerUrl}
-            title="Movie Trailer"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+    <div className=" z-30 w-screen h-screen">
+      {trailerShow ? (
+        <div className="w-full h-full bg-yellow-100">
+          {loading && <p>Loading trailer...</p>}
+          {error && <p>Error: {error}</p>}
+          {trailerUrl ? (
+            <div>
+              <iframe
+                width="400"
+                height="315"
+                src={trailerUrl}
+                title="Movie Trailer"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          ) : (
+            !loading && <p>No trailer available for this movie.</p>
+          )}
         </div>
       ) : (
-        !loading && <p>No trailer available for this movie.</p>
+        <div></div>
       )}
     </div>
   );
 };
-
 export default Trailer;

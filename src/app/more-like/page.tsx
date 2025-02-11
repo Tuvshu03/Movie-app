@@ -4,7 +4,7 @@ import axios from "axios";
 import { Star, ArrowRight } from "lucide-react";
 import { Movie } from "@/app/types/Movie";
 import Image from "next/image";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -14,7 +14,8 @@ type MovieId = {
   movieId: number;
 };
 
-const MoreLike = (props:MovieId) => {
+
+const page = (props:MovieId) => {
     const {movieId} = props;
      const { push } = useRouter();
      const [error, setError] = useState<string>("");
@@ -49,20 +50,10 @@ const MoreLike = (props:MovieId) => {
      useEffect(() => {
        getMovieData();
      }, []);
-   
   return (
-<div className="w-full justify-center">
+    <div className="w-full justify-center">
       <div className="flex justify-between mb-9 mt-8">
         <div className="text-3xl  font-semibold">More Like this</div>
-        <div
-          onClick={() => {
-            push(`/more-like`);
-          }}
-          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2"
-        >
-          See more
-          <ArrowRight />
-        </div>
       </div>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 justify-center">
       {nowPlayingData.length > 0 &&
@@ -101,4 +92,4 @@ const MoreLike = (props:MovieId) => {
   )
 }
 
-export default MoreLike
+export default page
