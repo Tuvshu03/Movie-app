@@ -28,7 +28,7 @@ const PartPeople = (props: MovieId) => {
         }
       );
       setMovieDetail(response.data);
-      console.log("response", response.data);a
+      console.log("response", response.data);
 
       setLoading(false);
     } catch (err) {
@@ -47,11 +47,11 @@ const PartPeople = (props: MovieId) => {
   }, []);
   console.log("sad", movieDetail.crew)
   console.log("happy", movieDetail.cast)
-  console.log(movieDetail.movieId);
+  console.log(movieDetail.id);
   
   return (
     <div>
-      {!movieDetail.movieId ? (
+      {!movieDetail.id? (
         <div>
           {/* <div>
           <div className="">Director</div>
@@ -94,7 +94,7 @@ const PartPeople = (props: MovieId) => {
           <hr />
         </div>
       ) : (
-        <div>Loading</div>
+        <div></div>
       )}
     </div>
   );

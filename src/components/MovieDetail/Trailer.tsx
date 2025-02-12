@@ -56,15 +56,21 @@ const Trailer = (props: MovieId) => {
   }, [id]);
 
   return (
-    <div className=" z-30 w-screen h-screen">
+    <div
+      className={`${
+        trailerShow
+          ? "flex z-30 fixed inset-0 justify-center items-center"
+          : "hidden"
+      }`}
+    >
       {trailerShow ? (
-        <div className="w-full h-full bg-yellow-100">
+        <div className="border rounded-md">
           {loading && <p>Loading trailer...</p>}
           {error && <p>Error: {error}</p>}
           {trailerUrl ? (
             <div>
               <iframe
-                width="400"
+                width="515"
                 height="315"
                 src={trailerUrl}
                 title="Movie Trailer"

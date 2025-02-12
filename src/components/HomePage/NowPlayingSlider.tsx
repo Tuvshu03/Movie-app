@@ -7,6 +7,9 @@ import Image from "next/image";
 import { MovieDetail } from "@/app/types/MovieDetail";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { PlayMovie } from "../MovieDetail/PlayMovie";
+import Trailer from "../MovieDetail/Trailer";
+
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -17,6 +20,8 @@ const NowPlayingSlider = () => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [nowPlayingData, setNowPlayingData] = useState<MovieDetail[]>([]);
+  const [trailerShow, setTrailerShow] = useState<boolean>(false);
+  const [current, setCurrent] = useState(0);
 
   const getMovieData = async () => {
     try {
@@ -46,11 +51,33 @@ const NowPlayingSlider = () => {
     getMovieData();
   }, []);
 
+  const handleTrailer = () => {
+    if (trailerShow === false) {
+      setTrailerShow(true);
+    } else {
+      setTrailerShow(false);
+    }
+  };
+
+  const prevCard = () => {
+    setCurrent((current) =>
+      current === 0 ? nowPlayingData.length - 1 : current - 1
+    );
+  };
+  const nextCard = () => {
+    setCurrent((current) =>
+      current === nowPlayingData.length ? 0 : current + 1
+    );
+  };
+
   return (
     <Carousel className="">
-      <CarouselContent className="">
+      <CarouselContent
+        className=""
+      >
         {nowPlayingData.slice(0, 8).map((movie, index) => (
           <CarouselItem key={index}>
+            <Trailer movieId={movie.id} trailerShow={trailerShow} />
             <div className=" w-full ">
               <Card>
                 <CardContent className="p-0">
@@ -92,7 +119,10 @@ const NowPlayingSlider = () => {
                         <p className="w-[302px] text-sm line-clamp-5">
                           {movie.overview}
                         </p>
-                        <Button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2">
+                        <Button
+                          onClick={handleTrailer}
+                          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2"
+                        >
                           <Play />
                           <h4 className="text-sm">Watch Trailer</h4>
                         </Button>

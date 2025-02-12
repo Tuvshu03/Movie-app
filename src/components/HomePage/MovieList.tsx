@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Movie } from "@/app/types/Movie";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "../ui/skeleton";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -52,7 +53,7 @@ const MovieList = (props: movieView) => {
   }, []);
 
   if (loading) {
-    <div>Loading</div>;
+    return <Skeleton className="h-1/2 w-1/2"/>;
   }
 
   return (

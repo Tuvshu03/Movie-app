@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 // import PartPeople from "./PartPeople";
 import MoreLike from "./MoreLike";
 import Trailer from "./Trailer";
+import { Skeleton } from "../ui/skeleton";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -59,10 +60,13 @@ const MovieApi = (props: MovieId) => {
       setTrailerShow(false)
     }
   };
+  if(loading){
+    <Skeleton className="h-96 w-96"/>
+  }
 
   return (
     <div className="page-detail text-foreground ">
-      {/* <Trailer movieId={movieId} trailerShow={trailerShow} /> */}
+      <Trailer movieId={movieId} trailerShow={trailerShow}/>
       {!movieDetail.movieId ? (
         <div className="max-w-7xl">
           <div className="mt-8 mb-4 px-5 flex justify-between lg:mt-[52px] lg:mb-6 lg:px-0">
