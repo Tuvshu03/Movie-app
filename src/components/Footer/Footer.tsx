@@ -4,7 +4,7 @@ import { Film, Mail, Phone } from "lucide-react";
 const Footer = () => {
   return (
     <div className="bg-indigo-700 py-10 text-sm text-[#fafafa] mt-12">
-      <div className="mx-auto flex flex-col justify-between gap-y-7 lg:flex-row max-w-screen-2xl">
+      <div className="mx-auto flex flex-col justify-between gap-y-7 lg:flex-row max-w-7xl">
         <div className="flex flex-col">
           <div className="flex gap-2">
             <Film />

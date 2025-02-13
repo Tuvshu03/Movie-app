@@ -53,7 +53,7 @@ const MovieList = (props: movieView) => {
   }, []);
 
   if (loading) {
-    return <Skeleton className="h-1/2 w-1/2"/>;
+    return <Skeleton className="h-96 w-96"/>;
   }
 
   return (

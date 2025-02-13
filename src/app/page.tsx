@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <div className="w-screen">
       <NowPlayingSlider />
-      <div className=" px-5 lg:px-96">
+      <div className="flex flex-col items-center">
         {movieGenres.map((item, index) => (
           <MovieList key={index} name={item.name} endpoint={item.endpoint} />
         ))}

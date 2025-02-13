@@ -14,7 +14,9 @@ const PartPeople = (props: MovieId) => {
   const { movieId } = props;
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [movieDetail, setMovieDetail] = useState<MovieDetail | any>({});
+  const [movieDetail, setMovieDetail] = useState<MovieDetail>(
+    {} as MovieDetail
+  );
 
   const getMovieData = async () => {
     try {
@@ -45,57 +47,54 @@ const PartPeople = (props: MovieId) => {
   useEffect(() => {
     getMovieData();
   }, []);
-  console.log("sad", movieDetail.crew)
-  console.log("happy", movieDetail.cast)
-  console.log(movieDetail.id);
-  
+
   return (
-    <div>
-      {!movieDetail.id? (
-        <div>
-          {/* <div>
-          <div className="">Director</div>
-            {Array.isArray(movieDetail?.crew) &&
-              movieDetail.length > 0 && 
-              const director = movieDetail.crew.filter(movieDetail.crew.known_for_department==="Directing")
-
-              director.map((direct:any)=>{
-                return (
-                  <div key={direct.id} className="">{direct.name}</div>
-                )
-              })}
-          </div>
-          <hr />
-          <div>
-            <div className="">Writer</div>
-            {Array.isArray(movieDetail?.crew) &&
-              movieDetail.length > 0 && 
-              const writer === movieDetail.crew.filter(movieDetail.crew.known_for_department==="Writing")
-
-              writer.slice(0, 2).map((write:any)=>{
-                return (
-                  <div key={write.id} className="">{write.name}</div>
-                )
-              })}
-          </div> */}
-          <hr />
-          <div>
-            <div className="">Stars</div>
-            {
-            Array.isArray(movieDetail?.crew) && movieDetail.length > 0 &&
-              movieDetail.cast.slice(0, 3).map((cast: any) => {
-                return (
-                  <div key={cast.id} className="">
-                   sdfads
-                  </div>
-                );
-              })}
-          </div>
-          <hr />
+    <div className="space-y-5 text-foreground mb-8">
+      <div className="flex pb-1 gap-10">
+        <div className="font-bold w-16 mr-13">Director</div>
+        <div className="flex flex-1 flex-wrap">
+          {" "}
+          {movieDetail?.crew
+            ?.filter((crew) => crew.job === "Director")
+            .map((direct) => {
+              return (
+                <div key={direct.id} className="text-black">
+                  {direct.name}
+                </div>
+              );
+            })}
         </div>
-      ) : (
-        <div></div>
-      )}
+      </div>
+      <hr />
+      <div className="flex pb-1 gap-10">
+        <div className="font-bold w-16 mr-13">Writer</div>
+        <div className="flex flex-1 flex-wrap">
+          {" "}
+          {movieDetail?.crew
+            ?.filter((crew) => crew.job === "Writer")
+            .map((write) => {
+              return (
+                <div key={write.id} className="text-black">
+                  {write.name}
+                </div>
+              );
+            })}
+        </div>
+      </div>
+      <hr />
+      <div className="flex pb-1 gap-10">
+        <div className="font-bold w-16 mr-13">Stars</div>
+        <div className="flex flex-1 flex-wrap">
+          {movieDetail?.cast?.slice(0, 3).map((cast) => {
+            return (
+              <div key={cast.id} className="">
+                {cast.name}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <hr />
     </div>
   );
 };

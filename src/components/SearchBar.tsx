@@ -1,13 +1,13 @@
 import React from "react";
 import { Input } from "./ui/input";
-import { Search, Star, ArrowRight } from "lucide-react";
+import { Search, Star, ArrowRight, LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { MovieDetail } from "@/app/types/MovieDetail";
-import { Separator } from "@radix-ui/react-separator";
+import { Skeleton } from "./ui/skeleton";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -51,6 +51,12 @@ const SearchBar = () => {
   useEffect(() => {
     getMovieData();
   }, [searchValue]);
+
+  if(loading){
+    return <Skeleton className="absolute w-[335px] h-[128px] bg-[E4E4E7] flex justify-center items-center">
+      <LoaderCircle/>
+    </Skeleton>
+  }
   return (
     <div className="">
       <div className="relative text-muted-foreground w-[379px] ">
@@ -65,7 +71,9 @@ const SearchBar = () => {
         <div className="absolute z-30 rounded-xl bg-gray-50 p-2">
           {nowPlayingData.slice(0, 4).map((movie) => {
             return (
-              <Card className="border-none">
+              <Card 
+              key={movie.id}
+              className="border-none">
                 <CardContent
                   onClick={() => {
                     push(`/detail/${movie.id}`);

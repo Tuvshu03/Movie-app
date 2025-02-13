@@ -27,7 +27,8 @@ const Header = () => {
       {reverse === true ? (
         <SearchResponsive reverse={reverse} handleReverse={handleReverse} />
       ) : (
-        <div className="flex justify-between items-center my-3">
+        // <div className="max-w-7xl flex justify-center">
+        <div className="flex justify-between my-3 max-w-7xl mx-auto">
           <div
             className="flex gap-2 text-indigo-700"
             onClick={() => {
@@ -71,6 +72,7 @@ const Header = () => {
             )}
           </div>
         </div>
+        // </div>
       )}
     </div>
   );
