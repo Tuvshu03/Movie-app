@@ -53,7 +53,35 @@ const MovieList = (props: movieView) => {
   }, []);
 
   if (loading) {
-    return <Skeleton className="h-96 w-96"/>;
+    return <Skeleton>
+          <div className="w-full max-w-7xl justify-center p-0">
+      <div className="flex justify-between mb-9 mt-8 w-full">
+        <div className="text-3xl  font-semibold"></div>
+        <div
+          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2"
+        >
+          <ArrowRight />
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 justify-center">
+        {nowPlayingData.length > 0 &&
+          nowPlayingData.map((movie, index) => {
+            return (
+              <div
+                key={index}
+                className="flex justify-center col-span-1"
+              >
+                <Card
+                  className="w-[157.5px] lg:w-[233px] bg-secondary">
+                  <CardContent className="p-0 w-full bg-zinc-500 overflow-hidden rounded-lg bg-hidden">
+                  </CardContent>
+                </Card>
+              </div>
+            );
+          })}
+      </div>
+    </div>
+    </Skeleton>;
   }
 
   return (
@@ -91,7 +119,7 @@ const MovieList = (props: movieView) => {
                         width={157.5}
                         height={233}
                         alt="property image"
-                        className="overflow-hidden rounded-lg w-full"
+                        className="overflow-hidden rounded-bl-none w-full "
                       />
                       <div className="flex pl-2 mt-2">
                         <Star
@@ -113,6 +141,6 @@ const MovieList = (props: movieView) => {
       </div>
     </div>
   );
-};
+}
 
 export default MovieList;

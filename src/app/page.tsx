@@ -20,7 +20,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="w-screen">
+    <div className="w-screen mt-5">
       <NowPlayingSlider />
       <div className="flex flex-col items-center">
         {movieGenres.map((item, index) => (

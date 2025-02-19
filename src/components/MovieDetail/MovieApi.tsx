@@ -66,7 +66,7 @@ const MovieApi = (props: MovieId) => {
   const hour = Math.floor(runtime / 60);
   const minute = runtime - hour * 60;
   return (
-    <div className="page-detail text-foreground ">
+    <div className="page-detail text-foreground mt-5">
       <Trailer movieId={movieId} trailerShow={trailerShow} />
       {!movieDetail.movieId ? (
         <div className="max-w-6xl">
@@ -127,7 +127,7 @@ const MovieApi = (props: MovieId) => {
                   className="overflow-hidden w-full"
                 />
 
-                {/* <div className="absolute inset-0 z-10 transition-all duration-300 group-hover:bg-primary/30"></div> */}
+                <div className="absolute inset-0 z-10 transition-all duration-300 group-hover:bg-primary/30"></div>
               </div>
             </div>
           </div>

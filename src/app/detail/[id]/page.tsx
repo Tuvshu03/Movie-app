@@ -3,10 +3,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import MovieApi from "@/components/MovieDetail/MovieApi";
 
-type detail = {
-  movieId: number;
-};
-const Page = (movieId: detail) => {
+const Page = () => {
   const params = useParams();
   return (
     <div className="flex justify-center">

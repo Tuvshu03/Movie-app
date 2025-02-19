@@ -2,14 +2,28 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Star, Play } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "../ui/carousel";
 import Image from "next/image";
 import { MovieDetail } from "@/app/types/MovieDetail";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-import { PlayMovie } from "../MovieDetail/PlayMovie";
 import Trailer from "../MovieDetail/Trailer";
-
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -58,26 +72,13 @@ const NowPlayingSlider = () => {
       setTrailerShow(false);
     }
   };
-
-  const prevCard = () => {
-    setCurrent((current) =>
-      current === 0 ? nowPlayingData.length - 1 : current - 1
-    );
-  };
-  const nextCard = () => {
-    setCurrent((current) =>
-      current === nowPlayingData.length ? 0 : current + 1
-    );
-  };
+  console.log(nowPlayingData);
 
   return (
     <Carousel className="">
-      <CarouselContent
-        className=""
-      >
-        {nowPlayingData.slice(0, 8).map((movie, index) => (
+      <CarouselContent>
+        {nowPlayingData.map((movie, index) => (
           <CarouselItem key={index}>
-            <Trailer movieId={movie.id} trailerShow={trailerShow} />
             <div className=" w-full ">
               <Card>
                 <CardContent className="p-0">
@@ -119,13 +120,30 @@ const NowPlayingSlider = () => {
                         <p className="w-[302px] text-sm line-clamp-5">
                           {movie.overview}
                         </p>
-                        <Button
-                          onClick={handleTrailer}
-                          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2"
-                        >
-                          <Play />
-                          <h4 className="text-sm">Watch Trailer</h4>
-                        </Button>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button
+                              onClick={handleTrailer}
+                              variant="outline"
+                              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2"
+                            >
+                              <Play />
+                              <h4 className="text-sm">Watch Trailer</h4>
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                              <DialogTitle></DialogTitle>
+                            </DialogHeader>
+                            <Trailer
+                              movieId={movie.id}
+                              trailerShow={trailerShow}
+                            />
+                            {/* <DialogFooter>
+                              <Button type="submit">Save changes</Button>
+                            </DialogFooter> */}
+                          </DialogContent>
+                        </Dialog>
                       </div>
                     </div>
                   </div>
@@ -135,6 +153,12 @@ const NowPlayingSlider = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
+      <CarouselPrevious className="items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 w-8 rounded-full hidden lg:flex absolute top-1/2 -translate-y-1/2 left-11">
+        <ArrowLeft />
+      </CarouselPrevious>
+      <CarouselNext className="items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 w-8 rounded-full hidden lg:flex absolute top-1/2 -translate-y-1/2 right-11">
+        <ArrowRight />
+      </CarouselNext>
     </Carousel>
   );
 };

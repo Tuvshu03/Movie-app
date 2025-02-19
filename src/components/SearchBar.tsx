@@ -53,7 +53,7 @@ const SearchBar = () => {
   }, [searchValue]);
 
   if(loading){
-    return <Skeleton className="absolute w-[335px] h-[128px] bg-[E4E4E7] flex justify-center items-center">
+    return <Skeleton className="relative mt-10 text-muted-foreground w-[379px] h-[192px] bg-black flex justify-center items-center">
       <LoaderCircle/>
     </Skeleton>
   }

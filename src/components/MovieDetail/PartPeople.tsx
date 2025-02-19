@@ -30,7 +30,6 @@ const PartPeople = (props: MovieId) => {
         }
       );
       setMovieDetail(response.data);
-      console.log("response", response.data);
 
       setLoading(false);
     } catch (err) {
@@ -53,13 +52,13 @@ const PartPeople = (props: MovieId) => {
       <div className="flex pb-1 gap-10">
         <div className="font-bold w-16 mr-13">Director</div>
         <div className="flex flex-1 flex-wrap">
-          {" "}
           {movieDetail?.crew
             ?.filter((crew) => crew.job === "Director")
             .map((direct) => {
               return (
                 <div key={direct.id} className="text-black">
                   {direct.name}
+                  <span className="mx-2">·</span>
                 </div>
               );
             })}
@@ -76,6 +75,7 @@ const PartPeople = (props: MovieId) => {
               return (
                 <div key={write.id} className="text-black">
                   {write.name}
+                  <span className="mx-2">·</span>
                 </div>
               );
             })}
@@ -89,6 +89,7 @@ const PartPeople = (props: MovieId) => {
             return (
               <div key={cast.id} className="">
                 {cast.name}
+                <span className="mx-2">·</span>
               </div>
             );
           })}

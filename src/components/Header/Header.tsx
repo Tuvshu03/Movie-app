@@ -23,14 +23,13 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div className="fixed inset-0 z-30 bg-secondary h-16">
       {reverse === true ? (
         <SearchResponsive reverse={reverse} handleReverse={handleReverse} />
       ) : (
-        // <div className="max-w-7xl flex justify-center">
         <div className="flex justify-between my-3 max-w-7xl mx-auto">
           <div
-            className="flex gap-2 text-indigo-700"
+            className="flex gap-2 text-indigo-700 cursor-pointer"
             onClick={() => {
               push(`../`);
             }}

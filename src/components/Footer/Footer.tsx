@@ -1,18 +1,26 @@
+"use client"
+
 import React from "react";
 import { Film, Mail, Phone } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const Footer = () => {
+  const {push} = useRouter()
   return (
-    <div className="bg-indigo-700 py-10 text-sm text-[#fafafa] mt-12">
+    <div className="bg-indigo-700 py-10 text-sm text-[#fafafa] mt-12 min-w-fit">
       <div className="mx-auto flex flex-col justify-between gap-y-7 lg:flex-row max-w-7xl">
         <div className="flex flex-col">
-          <div className="flex gap-2">
+          <div 
+                onClick={() => {
+                  push(`../`);
+                }}
+          className="flex gap-2 cursor-pointer">
             <Film />
             <p className="font-bold">Movie Z</p>
           </div>
           <p>© 2024 Movie Z. All Rights Reserved</p>
         </div>
-        <div className="flex justify-between gap-12">
+        <div className="flex justify-between gap">
           <div className="">
             Contact Information
             <div className="flex items-center gap-3">
