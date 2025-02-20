@@ -139,9 +139,6 @@ const NowPlayingSlider = () => {
                               movieId={movie.id}
                               trailerShow={trailerShow}
                             />
-                            {/* <DialogFooter>
-                              <Button type="submit">Save changes</Button>
-                            </DialogFooter> */}
                           </DialogContent>
                         </Dialog>
                       </div>

@@ -11,7 +11,7 @@ const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 type MovieId = {
-  movieId: number;
+  movieId: string;
 };
 
 const MoreLike = (props: MovieId) => {
@@ -56,7 +56,7 @@ const MoreLike = (props: MovieId) => {
         <div className="text-3xl  font-semibold">More Like this</div>
         <div
           onClick={() => {
-            push(`/more-like`);
+            push(`/similar/${movieId}`);
           }}
           className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2"
         >

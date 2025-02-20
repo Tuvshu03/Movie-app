@@ -89,6 +89,7 @@ const Genre = (props: any) => {
   useEffect(() => {
     getMovieData();
   }, [getMovieData, currentPage, searchParams]);
+  
   const x = (genreId: number) => {
     const genreIdStr = genreId.toString();
     let updatedGenres;

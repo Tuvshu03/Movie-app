@@ -16,6 +16,7 @@ export default function Home() {
     {
       name: "Top Rated",
       endpoint: "top_rated",
+
     },
   ];
 

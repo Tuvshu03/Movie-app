@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
+import React, {useState, useEffect} from "react";
 import { Star, ArrowRight, ArrowLeft } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Movie } from "@/app/types/Movie";
@@ -28,14 +28,13 @@ const page = () => {
   const [nowPlayingData, setNowPlayingData] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const params = useParams();
-  const endpoint = params.segment;
+  const { movieId } = useParams<{ movieId: string }>();
   
   const getMovieData = async (page: number) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `${TMDB_BASE_URL}/movie/${endpoint}?language=en-US&page=${currentPage}`,
+        `${TMDB_BASE_URL}/movie/${movieId}/similar?language=en-US&page=${currentPage}`,
         {
           headers: {
             Authorization: `Bearer ${TMDB_API_TOKEN}`,
@@ -59,15 +58,6 @@ const page = () => {
   useEffect(() => {
     getMovieData(currentPage);
   }, [currentPage])
-  let name = "sad"
-  if(endpoint==="upcoming"){
-    name = "Up Coming"}
-  else if(endpoint==="popular"){
-    name = "Popular"
-  }
-  else{
-    name="Top Rated"
-  }
 
   if (loading) {
     return <Skeleton className="h-1/2 w-1/2" />;
@@ -76,7 +66,7 @@ const page = () => {
   return (
     <div className="mt-16 w-full max-w-7xl flex flex-col  items-center mx-auto p-0">
       <div className="w-full max-w-7xl justify-center p-0">
-        <div className="mb-9 mt-8 text-3xl font-semibold">{name}</div>
+        <div className="mb-9 mt-8 text-3xl font-semibold">More Like This</div>
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 justify-center">
           {nowPlayingData.length > 0 &&
             nowPlayingData.map((movie, index) => {
