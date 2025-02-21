@@ -28,7 +28,6 @@ export default function Home() {
         {movieGenres.map((item, index) => (
           <MovieList key={index} name={item.name} endpoint={item.endpoint} />
         ))}
-        <ConnectBackEnd/>
       </div>
     </div>
   );

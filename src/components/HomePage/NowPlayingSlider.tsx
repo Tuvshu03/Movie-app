@@ -18,8 +18,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -35,7 +33,6 @@ const NowPlayingSlider = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [nowPlayingData, setNowPlayingData] = useState<MovieDetail[]>([]);
   const [trailerShow, setTrailerShow] = useState<boolean>(false);
-  const [current, setCurrent] = useState(0);
 
   const getMovieData = async () => {
     try {
@@ -72,7 +69,6 @@ const NowPlayingSlider = () => {
       setTrailerShow(false);
     }
   };
-  console.log(nowPlayingData);
 
   return (
     <Carousel className="">
