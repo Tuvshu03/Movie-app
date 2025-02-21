@@ -18,10 +18,12 @@ const SearchBar = () => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [nowPlayingData, setNowPlayingData] = useState<MovieDetail[]>([]);
+  const [filteredMovie, setFilteredMovie] = useState<MovieDetail[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
 
   const handleMovie = (event: any) => {
     setSearchValue(event.target.value);
+    setFilteredMovie(nowPlayingData.slice(0,5))
   };
 
   const getMovieData = async () => {
@@ -36,6 +38,7 @@ const SearchBar = () => {
         }
       );
       setNowPlayingData(response.data.results);
+      setFilteredMovie(response.data.results);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -51,6 +54,10 @@ const SearchBar = () => {
   useEffect(() => {
     getMovieData();
   }, [searchValue]);
+
+  const handleMovieClick = () =>{
+    setSearchValue("")
+  }
 
   if(loading){
     return <Skeleton className="relative mt-10 text-muted-foreground w-[379px] h-[192px] bg-black flex justify-center items-center">
@@ -68,8 +75,8 @@ const SearchBar = () => {
         />
       </div>
       {searchValue.length > 0 && (
-        <div className="absolute z-30 rounded-xl bg-gray-50 p-2">
-          {nowPlayingData.slice(0, 4).map((movie) => {
+        <div className="absolute z-30 rounded-xl bg-gray-50 p-2 mt-3">
+          {nowPlayingData.slice(0, 5).map((movie) => {
             return (
               <Card 
               key={movie.id}
@@ -77,9 +84,9 @@ const SearchBar = () => {
                 <CardContent
                   onClick={() => {
                     push(`/detail/${movie.id}`);
-                    setSearchValue("");
+                    handleMovieClick()
                   }}
-                  className="flex gap-x-4 mb-2 p-2 hover:bg-muted border-none "
+                  className="flex gap-x-4 mb-2 p-2 hover:bg-muted hover:rounded-xl border-none "
                 >
                   <Image
                     src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}

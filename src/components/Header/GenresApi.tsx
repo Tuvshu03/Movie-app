@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
 } from "../ui/dropdown-menu";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "../ui/skeleton";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -51,14 +52,19 @@ const GenresApi = () => {
   useEffect(() => {
     getMovieData();
   }, []);
+
+if(loading) return <Skeleton className="p-5 w-[335px] lg:justifty-center sm:w-[577px]">
+  <div className=""></div>
+</Skeleton>
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="w-9 h-9 border flex justify-center items-center lg:w-[97px] lg:h-[36px] lg:py-4 lg:px-2 gap-2 rounded-md">
         <ChevronDown className="w-4 h-4" />
         <div className="hidden lg:block">Genres</div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-5 w-[335px] lg:justifty-center sm:w-[577px]">
-        <DropdownMenuGroup className="  ">
+      <DropdownMenuContent className="absolute -left-11 p-5 w-[335px] lg:justifty-center sm:w-[577px]">
+        <DropdownMenuGroup>
           <div className="flex flex-col mb-5">
             <DropdownMenuLabel>Genres</DropdownMenuLabel>
             <p>See list of movies by genre</p>
@@ -75,9 +81,7 @@ const GenresApi = () => {
                     onClick={() => {
                       push(`/genre`);
                     }}
-                    key={index}
                     className="text-sx"
-                    value={movie.name}
                   >
                     {movie.name}
                   </DropdownMenuItem>

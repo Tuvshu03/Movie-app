@@ -4,7 +4,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { ChevronRight, Star, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import {
@@ -168,7 +167,7 @@ const Genre = (props: any) => {
             {totalResults} titles{" "}
           </div>
           <div className="flex flex-col items-end ">
-            <div className="w-[350px] sm:w-[806px] h-auto  flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px] my-10  ">
+            <div className="w-[350px] sm:w-[806px] h-auto justify-items-center items-between gap-4 sm:gap-[31.2px] my-10 grid grid-cols-4">
             {movies.length > 0 &&
                 movies.map((movie, index) => {
                   return (
@@ -179,14 +178,14 @@ const Genre = (props: any) => {
                       key={index}
                       className="bg-secondary"
                     >
-                      <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden space-y-1 lg:w-[233px]">
+                      <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden space-y-1 lg:w-[190px]">
                         <div className="flex flex-col justify-center">
                           <Image
                             src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
                             width={157.5}
                             height={233.1}
                             alt="property image"
-                            className="overflow-hidden rounded-lg w-full"
+                            className="overflow-hidden w-full"
                           />
                           <div className="flex pl-2 mt-2">
                             <Star
