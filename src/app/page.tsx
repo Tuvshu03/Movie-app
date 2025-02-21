@@ -2,6 +2,7 @@
 
 import NowPlayingSlider from "@/components/HomePage/NowPlayingSlider";
 import MovieList from "@/components/HomePage/MovieList";
+import ConnectBackEnd from "@/components/connectBackEnd";
 
 export default function Home() {
   const movieGenres = [
@@ -27,6 +28,7 @@ export default function Home() {
         {movieGenres.map((item, index) => (
           <MovieList key={index} name={item.name} endpoint={item.endpoint} />
         ))}
+        <ConnectBackEnd/>
       </div>
     </div>
   );
