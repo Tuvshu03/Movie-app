@@ -23,7 +23,7 @@ const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 const page = () => {
   const { push } = useRouter();
-  const [error, setError] = useState<string>("");
+  const [, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [nowPlayingData, setNowPlayingData] = useState<Movie[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);

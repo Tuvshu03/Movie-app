@@ -71,10 +71,12 @@ const NowPlayingSlider = () => {
   };
 
   return (
-    <Carousel className="">
+    <Carousel>
       <CarouselContent>
         {nowPlayingData.map((movie, index) => (
-          <CarouselItem key={index}>
+          <CarouselItem
+            key={index}
+          >
             <div className=" w-full ">
               <Card>
                 <CardContent className="p-0">

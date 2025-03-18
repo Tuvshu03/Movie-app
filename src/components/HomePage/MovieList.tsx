@@ -119,7 +119,7 @@ const MovieList = (props: movieView) => {
                         width={157.5}
                         height={233}
                         alt="property image"
-                        className="overflow-hidden rounded-bl-none w-full "
+                        className="overflow-hidden object-cover rounded-bl-none w-full "
                       />
                       <div className="flex pl-2 mt-2">
                         <Star

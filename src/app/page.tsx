@@ -2,7 +2,6 @@
 
 import NowPlayingSlider from "@/components/HomePage/NowPlayingSlider";
 import MovieList from "@/components/HomePage/MovieList";
-import ConnectBackEnd from "@/components/connectBackEnd";
 
 export default function Home() {
   const movieGenres = [
