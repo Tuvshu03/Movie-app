@@ -6,6 +6,7 @@ import { Movie } from "@/app/types/Movie";
 import Image from "next/image";
 import { Card, CardContent } from "../ui/card";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "../ui/skeleton";
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
@@ -49,7 +50,9 @@ const MoreLike = (props: MovieId) => {
   useEffect(() => {
     getMovieData();
   }, []);
-
+  if(loading){
+    <Skeleton><div className="w-[157.5px] h-24"></div></Skeleton>
+  }
   return (
     <div className="w-full justify-center">
       <div className="flex justify-between mb-9 mt-8">
