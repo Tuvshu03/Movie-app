@@ -13,7 +13,7 @@ const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 type SearchResultMoviesProps = {
   searchValue: string;
-  setSearchValue: string;
+  setSearchValue: (value: string) => void;
 };
 
 export const SearchResultMovies = (props: SearchResultMoviesProps) => {

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Star, ArrowRight, ArrowLeft } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Movie } from "@/app/types/Movie";
@@ -21,7 +21,7 @@ const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
-const page = () => {
+const Page = () => {
   const { push } = useRouter();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,7 +29,7 @@ const page = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const { movieId } = useParams<{ movieId: string }>();
-  
+
   const getMovieData = async (page: number) => {
     try {
       setLoading(true);
@@ -57,7 +57,7 @@ const page = () => {
 
   useEffect(() => {
     getMovieData(currentPage);
-  }, [currentPage])
+  }, [currentPage]);
 
   if (loading) {
     return <Skeleton className="h-1/2 w-1/2" />;
@@ -109,7 +109,7 @@ const page = () => {
           <PaginationContent>
             <PaginationPrevious
               onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 0}
+              area-disabled={currentPage === 0}
             >
               <ArrowRight />
             </PaginationPrevious>
@@ -132,7 +132,7 @@ const page = () => {
 
             <PaginationNext
               onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              area-disabled={currentPage == totalPages || false}
             >
               <ArrowLeft />
             </PaginationNext>
@@ -143,4 +143,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -21,7 +21,7 @@ const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
-const page = () => {
+const Page = () => {
   const { push } = useRouter();
   const [, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -119,7 +119,7 @@ const page = () => {
           <PaginationContent>
             <PaginationPrevious
               onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 0}
+              aria-disabled={currentPage === 0}
             >
               <ArrowRight />
             </PaginationPrevious>
@@ -142,7 +142,7 @@ const page = () => {
 
             <PaginationNext
               onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              aria-disabled={currentPage == totalPages}
             >
               <ArrowLeft />
             </PaginationNext>
@@ -153,4 +153,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

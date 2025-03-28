@@ -43,6 +43,7 @@ const GenresApi = () => {
       setLoading(false);
       if (axios.isAxiosError(err)) {
         setError(err.response?.data.status_message);
+        console.log(error);
       }
     } finally {
       setLoading(false);
@@ -53,9 +54,12 @@ const GenresApi = () => {
     getMovieData();
   }, []);
 
-if(loading) return <Skeleton className="p-5 w-[335px] lg:justifty-center sm:w-[577px]">
-  <div className=""></div>
-</Skeleton>
+  if (loading)
+    return (
+      <Skeleton className="p-5 w-[335px] lg:justifty-center sm:w-[577px]">
+        <div className=""></div>
+      </Skeleton>
+    );
 
   return (
     <DropdownMenu>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Film, Moon, Search, Sun, ChevronDown } from "lucide-react";
+import { Film, Moon, Search, Sun } from "lucide-react";
 import { Button } from "../ui/button";
 import { useTheme } from "next-themes";
 import { SearchResponsive } from "./SearchResponsive";
