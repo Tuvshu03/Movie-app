@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <div className="fixed inset-0 z-30 bg-secondary h-16">
       {reverse === true ? (
-        <SearchResponsive reverse={reverse} handleReverse={handleReverse} />
+        <SearchResponsive handleReverse={handleReverse} />
       ) : (
         <div className="flex justify-between my-3 max-w-7xl mx-auto">
           <div

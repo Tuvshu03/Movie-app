@@ -11,19 +11,16 @@ import {
 } from "../ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
+import { Genre} from "@/app/types";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
-type Genres = {
-  id: number;
-  name: string;
-};
 
 const GenresApi = () => {
   const { push } = useRouter();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [nowPlayingData, setNowPlayingData] = useState<Genres[]>([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
 
   const getMovieData = async () => {
     try {
@@ -36,7 +33,7 @@ const GenresApi = () => {
           },
         }
       );
-      setNowPlayingData(response.data.genres);
+      setGenres(response.data.genres);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -49,7 +46,6 @@ const GenresApi = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     getMovieData();
   }, []);
@@ -75,7 +71,7 @@ const GenresApi = () => {
             <hr />
           </div>
           <div className="flex flex-wrap items-start gap-4">
-            {nowPlayingData?.map((movie, index) => {
+            {genres?.map((genre, index) => {
               return (
                 <div
                   key={index}
@@ -83,11 +79,11 @@ const GenresApi = () => {
                 >
                   <DropdownMenuItem
                     onClick={() => {
-                      push(`/genre`);
+                      push(`/genre?genresId=${genre.id}`);
                     }}
                     className="text-sx"
                   >
-                    {movie.name}
+                    {genre.name}
                   </DropdownMenuItem>
                   <ChevronRight className="w-4 h-4" />
                 </div>

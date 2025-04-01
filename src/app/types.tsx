@@ -5,7 +5,6 @@ export type MovieId = {
 export type MovieDetail = {
   adult: boolean;
   backdrop_path: string;
-  genre_ids: number[];
   id: number;
   original_language: string;
   original_title: string;
@@ -41,6 +40,11 @@ export type MovieDetail = {
       profile_path: string | null;
     }
   ];
-  runtime: number;
-  genres: [{ id: number; name: string }];
+  runtime: number
+  genres:Genre[]
 };
+
+export type Genre = {
+  id:number;
+  name:string;
+}

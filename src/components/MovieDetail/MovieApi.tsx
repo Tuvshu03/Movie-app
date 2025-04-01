@@ -16,7 +16,7 @@ const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 const MovieApi = (props: MovieId) => {
   const { movieId } = props;
-  const [error, setError] = useState<string>("");
+  const [, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [movieDetail, setMovieDetail] = useState<MovieDetail>({} as MovieDetail);
   const [trailerShow, setTrailerShow] = useState<boolean>(false);
@@ -55,17 +55,13 @@ const MovieApi = (props: MovieId) => {
       setTrailerShow(false);
     }
   };
-  if (loading) {
-    <Skeleton/>;
-  }
-  
   const runtime = movieDetail.runtime;
   const hour = Math.floor(runtime / 60);
   const minute = runtime - hour * 60;
-  return (
-    <div className="page-detail text-foreground mt-5">
+    return (
+    <div className="page-detail text-foreground mt-10">
       <Trailer movieId={movieId} trailerShow={trailerShow} />
-      {!movieDetail.id? (
+      {movieDetail.id? (
         <div className="max-w-6xl">
           <div className="mt-8 mb-4 px-5 flex justify-between lg:mt-[52px] lg:mb-6 lg:px-0">
             <div className="space-y-1">

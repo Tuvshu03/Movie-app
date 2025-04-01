@@ -1,21 +1,19 @@
 import React from "react";
 import { Button } from "../ui/button";
-import {X} from "lucide-react";
+import { X } from "lucide-react";
 import GenresApi from "./GenresApi";
 import SearchBar from "../SearchBar";
 
 type SearchProps = {
-  handleReverse:()=>void
-}
-export const SearchResponsive = (props:SearchProps) => {
+  handleReverse: () => void;
+};
+export const SearchResponsive = (props: SearchProps) => {
   const { handleReverse } = props;
 
   return (
-    <div className="flex  items-center justify-between bg-background w-full">
-      <div className="flex gap-3">
-        <GenresApi />
-        <SearchBar />
-      </div>
+    <div className="flex justify-between w-full gap-2">
+      <GenresApi />
+      <SearchBar />
       <Button
         onClick={handleReverse}
         variant="outline"

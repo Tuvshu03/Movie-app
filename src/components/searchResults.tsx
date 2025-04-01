@@ -1,4 +1,3 @@
-import { MovieDetail } from "@/app/types/MovieDetail";
 import { Star, ArrowRight, LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -6,6 +5,7 @@ import { Card, CardContent } from "./ui/card";
 import axios from "axios";
 import Image from "next/image";
 import { Skeleton } from "./ui/skeleton";
+import { MovieDetail } from "@/app/types";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;

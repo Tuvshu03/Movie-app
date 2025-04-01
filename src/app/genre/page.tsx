@@ -3,8 +3,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { ChevronRight, Star, X } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
+import { parseAsInteger, useQueryState } from "nuqs";
 import Image from "next/image";
 import {
   Pagination,
@@ -15,6 +16,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MovieDetail } from "../types";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -27,26 +29,14 @@ const Genre = () => {
   const router = useRouter();
   const [totalPage, SetTotalPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
-
   const startPage = Math.max(0, currentPage - 2);
   const slicePage = 3;
   const endPage = Math.min(totalPage, startPage + slicePage);
-
   const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
-
   const selectedGenreIds = searchParams.get("genresId")?.split(",") || [];
-
-  interface Movie {
-    vote_average: number;
-    poster_path: string | null;
-    id: number;
-    title: string;
-  }
-
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<MovieDetail[]>([]);
   const [loading, setLoading] = useState(false);
   const [, setError] = useState("");
-
 
   const getMovieData = useCallback(async () => {
     try {
@@ -88,8 +78,8 @@ const Genre = () => {
   useEffect(() => {
     getMovieData();
   }, [getMovieData, currentPage, searchParams]);
-  
-  const x = (genreId: number) => {
+
+  const renderGenre = (genreId: number) => {
     const genreIdStr = genreId.toString();
     let updatedGenres;
 
@@ -117,11 +107,15 @@ const Genre = () => {
     }
   };
 
-  if(loading){
-    return <Skeleton className=" px-5 p-8 flex flex-wrap justify-between">
-
-    </Skeleton>
+  if (loading) {
+    return (
+      <Skeleton className=" px-5 p-8 flex flex-wrap justify-between"></Skeleton>
+    );
   }
+  // useEffect(() => {
+  //   // Use the id (for example, fetch data based on the id)
+  //   console.log('Selected Genre ID:', id);
+  // }, [id]);
 
   return (
     <div className="flex justify-center items-center">
@@ -149,14 +143,14 @@ const Genre = () => {
                         ? "bg-black text-white dark:bg-white dark:text-black "
                         : ""
                     }h-[20px] border border-gray-500 rounded-full flex justify-between gap-2 items-center p-[10px] text-xs font-semibold cursor-pointer`}
-                    onClick={() => x(genre.id)}
+                    onClick={() => renderGenre(genre.id)}
                   >
                     {genre.name}
                     {isSelected ? (
-                        <X width={16} height={16} />
-                      ) : (
-                        <ChevronRight width={16} height={16} />
-                      )}
+                      <X width={16} height={16} />
+                    ) : (
+                      <ChevronRight width={16} height={16} />
+                    )}
                   </div>
                 );
               })}
@@ -168,7 +162,7 @@ const Genre = () => {
           </div>
           <div className="flex flex-col items-end ">
             <div className="w-[350px] sm:w-[806px] h-auto justify-items-center items-between gap-4 sm:gap-[31.2px] my-10 grid grid-cols-4">
-            {movies.length > 0 &&
+              {movies.length > 0 &&
                 movies.map((movie, index) => {
                   return (
                     <Card
