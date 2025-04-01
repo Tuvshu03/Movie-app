@@ -10,7 +10,6 @@ import {
   CarouselNext,
 } from "../ui/carousel";
 import Image from "next/image";
-import { MovieDetail } from "@/app/types/MovieDetail";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import Trailer from "../MovieDetail/Trailer";
@@ -22,6 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { MovieDetail } from "@/app/types";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -29,8 +29,8 @@ const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 const NowPlayingSlider = () => {
   const { push } = useRouter();
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [, setError] = useState<string>("");
+  const [, setLoading] = useState<boolean>(false);
   const [nowPlayingData, setNowPlayingData] = useState<MovieDetail[]>([]);
   const [trailerShow, setTrailerShow] = useState<boolean>(false);
 

@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import {X} from "lucide-react";
 import GenresApi from "./GenresApi";
 import SearchBar from "../SearchBar";
 
-export const SearchResponsive = (props:any) => {
+type SearchProps = {
+  handleReverse:()=>void
+}
+export const SearchResponsive = (props:SearchProps) => {
   const { handleReverse } = props;
 
   return (

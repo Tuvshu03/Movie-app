@@ -2,25 +2,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Star, ArrowRight } from "lucide-react";
-import { Movie } from "@/app/types/Movie";
 import Image from "next/image";
 import { Card, CardContent } from "../ui/card";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
+import { MovieDetail } from "@/app/types";
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 type MovieId = {
-  movieId: string;
+  movieId: number;
 };
 
 const MoreLike = (props: MovieId) => {
   const { movieId } = props;
   const { push } = useRouter();
-  const [error, setError] = useState<string>("");
+  const [, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [nowPlayingData, setNowPlayingData] = useState<Movie[]>([]);
+  const [nowPlayingData, setNowPlayingData] = useState<MovieDetail[]>([]);
 
   const getMovieData = async () => {
     try {

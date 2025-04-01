@@ -4,10 +4,13 @@ import { useParams } from "next/navigation";
 import MovieApi from "@/components/MovieDetail/MovieApi";
 
 const Page = () => {
-  const params = useParams();
+  const { id } = useParams();
+
+  if (!id) return null;
+
   return (
     <div className="flex justify-center">
-      <MovieApi movieId={params.id} />
+      <MovieApi movieId={Number(id)} />
     </div>
   );
 };

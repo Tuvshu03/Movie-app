@@ -1,14 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { MovieDetail } from "@/app/types/MovieDetail";
-
+import { MovieDetail, MovieId } from "@/app/types";
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
-
-type MovieId = {
-  movieId: number;
-};
 
 const PartPeople = (props: MovieId) => {
   const { movieId } = props;
@@ -47,6 +42,8 @@ const PartPeople = (props: MovieId) => {
     getMovieData();
   }, []);
 
+
+  console.log(movieDetail)
   return (
     <div className="space-y-5 text-foreground mb-8">
       <div className="flex pb-1 gap-10">

@@ -15,7 +15,7 @@ const Footer = () => {
                   push(`../`);
                 }}
           className="flex gap-2 cursor-pointer">
-            <Film />
+            <Film/>
             <p className="font-bold">Movie Z</p>
           </div>
           <p>© 2024 Movie Z. All Rights Reserved</p>

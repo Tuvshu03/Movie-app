@@ -118,13 +118,13 @@ const Genre = () => {
   };
 
   if(loading){
-    return <Skeleton className="w-full px-5 p-8 xl:w-[1280px] flex flex-wrap justify-between">
+    return <Skeleton className=" px-5 p-8 flex flex-wrap justify-between">
 
     </Skeleton>
   }
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className="flex justify-center items-center">
       <div className="w-full px-5 p-8 xl:w-[1280px] flex flex-wrap justify-between">
         <div className="mb-8 text-2xl font-semibold xl:w-[1280px] xl:h-[36px] xl:mb-10">
           Search Filter

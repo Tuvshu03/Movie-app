@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { Star, ArrowRight, ArrowLeft } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Movie } from "@/app/types/Movie";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -16,6 +15,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import axios from "axios";
+import { MovieDetail } from "@/app/types";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -23,14 +23,14 @@ const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
 const Page = () => {
   const { push } = useRouter();
-  const [error, setError] = useState<string>("");
+  const [, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [nowPlayingData, setNowPlayingData] = useState<Movie[]>([]);
+  const [nowPlayingData, setNowPlayingData] = useState<MovieDetail[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const { movieId } = useParams<{ movieId: string }>();
 
-  const getMovieData = async (page: number) => {
+  const getMovieData = async (currentPage: number) => {
     try {
       setLoading(true);
       const response = await axios.get(
