@@ -161,7 +161,7 @@ const Genre = () => {
             {totalResults} titles{" "}
           </div>
           <div className="flex flex-col items-end ">
-            <div className="w-[350px] sm:w-[806px] h-auto justify-items-center items-between gap-4 sm:gap-[31.2px] my-10 grid grid-cols-4">
+            <div className="w-[350px] sm:w-[806px] h-auto justify-items-center items-between gap-4 sm:gap-[31.2px] my-10 lg:grid-cols">
               {movies.length > 0 &&
                 movies.map((movie, index) => {
                   return (

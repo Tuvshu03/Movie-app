@@ -18,7 +18,9 @@ const MovieApi = (props: MovieId) => {
   const { movieId } = props;
   const [, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [movieDetail, setMovieDetail] = useState<MovieDetail>({} as MovieDetail);
+  const [movieDetail, setMovieDetail] = useState<MovieDetail>(
+    {} as MovieDetail
+  );
   const [trailerShow, setTrailerShow] = useState<boolean>(false);
   const getMovieData = async () => {
     try {
@@ -58,10 +60,10 @@ const MovieApi = (props: MovieId) => {
   const runtime = movieDetail.runtime;
   const hour = Math.floor(runtime / 60);
   const minute = runtime - hour * 60;
-    return (
+  return (
     <div className="page-detail text-foreground mt-10">
       <Trailer movieId={movieId} trailerShow={trailerShow} />
-      {movieDetail.id? (
+      {movieDetail.id ? (
         <div className="max-w-6xl">
           <div className="mt-8 mb-4 px-5 flex justify-between lg:mt-[52px] lg:mb-6 lg:px-0">
             <div className="space-y-1">
@@ -76,7 +78,7 @@ const MovieApi = (props: MovieId) => {
             </div>
             <div className="flex flex-col justify-center">
               <h5 className="hidden lg:block w-full align-center">Rating</h5>
-              <div className="flex py-[2px] gap-x-1">
+              <div className="flex py-[2px] gap-x-1 items-center">
                 <Star
                   color="#fde047"
                   fill="#fde047"
@@ -86,7 +88,11 @@ const MovieApi = (props: MovieId) => {
                   <div className="font-medium">
                     {movieDetail.vote_average}/10
                   </div>
-                  <div>{movieDetail.vote_count}</div>
+                  {movieDetail.vote_count > 1000 ? (
+                    <div>{Math.floor(movieDetail.vote_count / 1000)}k</div>
+                  ) : (
+                    <div>1k</div>
+                  )}
                 </div>
               </div>
             </div>

@@ -6,6 +6,7 @@ import axios from "axios";
 import Image from "next/image";
 import { Skeleton } from "./ui/skeleton";
 import { MovieDetail } from "@/app/types";
+import { CommandItem } from "./ui/command";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -61,16 +62,17 @@ export const SearchResultMovies = (props: SearchResultMoviesProps) => {
 
   return (
     searchValue.length > 0 && (
-      <div className="absolute z-30 rounded-xl bg-primary p-2 mt-3">
+      <div>
         {nowPlayingData.slice(0, 5).map((movie) => {
           return (
-            <Card key={movie.id} className="border-none">
+            <CommandItem key={movie.id}>
+            <Card >
               <CardContent
                 onClick={() => {
                   push(`/detail/${movie.id}`);
                   setSearchValue("");
                 }}
-                className="flex gap-x-4 mb-2 p-2 hover:bg-muted hover:rounded-xl border-none "
+                className="flex gap-x-4 mb-2 p-2 hover:bg-muted hover:rounded-xl border-none"
               >
                 <Image
                   src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
@@ -80,9 +82,9 @@ export const SearchResultMovies = (props: SearchResultMoviesProps) => {
                   className="relative overflow-hidden w-[67px] h-[100px] rounded-md"
                 />
                 <div className="flex-1 text-foreground">
-                  <h4 className="w-48 lg:w-96 truncate text-xl font-semibold">
+                  <span className="w-48 lg:w-96 truncate text-xl font-semibold">
                     {movie.title}
-                  </h4>
+                  </span>
                   <div className="flex items-center gap-x-1">
                     <Star
                       color="#fde047"
@@ -100,9 +102,11 @@ export const SearchResultMovies = (props: SearchResultMoviesProps) => {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </Card></CommandItem>
           );
         })}
+      
+      
       </div>
     )
   );
