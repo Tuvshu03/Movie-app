@@ -67,12 +67,12 @@ const NowPlayingSlider = () => {
                         push(`/detail/${movie.id}`);
                       }}
                     />
-                    <div className="static lg:absolute lg:top-1/2 lg:left-[140px] lg:-translate-y-1/2z-10 bg-transparent text-[#a3b83b] shadow-none">
+                    <div className="lg:absolute lg:top-1/2 lg:left-1/4 lg:-translate-y-1/2z-10 bg-opacity-95 text-secondary-foreground">
                       <div className="p-5 space-y-4 lg:p-0">
                         <div className="flex justify-between lg:flex-col lg:space-y-1">
                           <div className="">
                             <h4>Now Playing:</h4>
-                            <h3>{movie.title}</h3>
+                            <h3 className="">{movie.title}</h3>
                           </div>
                           <div className="flex items-center gap-x-1">
                             <Star
@@ -81,7 +81,7 @@ const NowPlayingSlider = () => {
                               className="bg-yellow w-[28px] h-[28px]"
                             />
                             <div className="font-medium">
-                              <div className="text-foreground text-sm">
+                              <div className="text-sm">
                                 {movie.vote_average}
                               </div>
                               <div className="text-muted-foreground text-xs">
