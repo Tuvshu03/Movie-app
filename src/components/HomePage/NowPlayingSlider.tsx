@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Star, Play } from "lucide-react";
+import { Star} from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import {
   Carousel,
@@ -10,7 +10,6 @@ import {
   CarouselNext,
 } from "../ui/carousel";
 import Image from "next/image";
-import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import Trailer from "../MovieDetail/Trailer";
 import { ArrowLeft, ArrowRight } from "lucide-react";

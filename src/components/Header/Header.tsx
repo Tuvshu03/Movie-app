@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { SearchResponsive } from "./SearchResponsive";
 import { useRouter } from "next/navigation";
 import GenresApi from "./GenresApi";
-import {SearchBar} from "../SearchBar";
+import SearchBar from "../Search/SearchBar";
 
 const Header = () => {
   const [reverse, setReverse] = useState(false);

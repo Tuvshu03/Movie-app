@@ -2,12 +2,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MovieDetail, MovieId } from "@/app/types";
+import { Skeleton } from "../ui/skeleton";
+import { Loader } from "lucide-react";
+
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 
 const PartPeople = (props: MovieId) => {
   const { movieId } = props;
-  const [error, setError] = useState<string>("");
+  const [, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [movieDetail, setMovieDetail] = useState<MovieDetail>(
     {} as MovieDetail
@@ -42,6 +45,9 @@ const PartPeople = (props: MovieId) => {
     getMovieData();
   }, []);
   
+  if(loading){
+    return <Skeleton><Loader/></Skeleton>
+  }
   return (
     <div className="space-y-5 text-foreground mb-8">
       <div className="flex pb-1 gap-10">

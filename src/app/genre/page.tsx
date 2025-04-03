@@ -3,9 +3,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { ChevronRight, Star, X } from "lucide-react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
-import { parseAsInteger, useQueryState } from "nuqs";
 import Image from "next/image";
 import {
   Pagination,

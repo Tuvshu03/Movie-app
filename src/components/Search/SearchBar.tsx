@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
-import { Input } from "./ui/input";
 import { Search } from "lucide-react";
 import { useState } from "react";
+import { Input } from "../ui/input";
 import { SearchResultMovies } from "./searchResults";
 
 export function SearchBar() {

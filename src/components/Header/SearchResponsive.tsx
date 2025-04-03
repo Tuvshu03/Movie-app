@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
 import GenresApi from "./GenresApi";
-import SearchBar from "../SearchBar";
+import SearchBar from "../Search/SearchBar";
 
 type SearchProps = {
   handleReverse: () => void;
