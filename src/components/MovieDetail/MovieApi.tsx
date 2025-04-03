@@ -3,12 +3,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Star, Play } from "lucide-react";
 import Image from "next/image";
-import { Button } from "../ui/button";
 import PartPeople from "./PartPeople";
 import MoreLike from "./MoreLike";
-import Trailer from "./Trailer";
-import { Skeleton } from "../ui/skeleton";
 import { MovieDetail, MovieId } from "@/app/types";
+import Trailer from "./Trailer";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -58,11 +56,10 @@ const MovieApi = (props: MovieId) => {
     }
   };
   const runtime = movieDetail.runtime;
-  const hour = Math.floor(runtime / 60);
+  const hour = Math.floor(runtime/60);
   const minute = runtime - hour * 60;
   return (
     <div className="page-detail text-foreground mt-10">
-      <Trailer movieId={movieId} trailerShow={trailerShow} />
       {movieDetail.id ? (
         <div className="max-w-6xl">
           <div className="mt-8 mb-4 px-5 flex justify-between lg:mt-[52px] lg:mb-6 lg:px-0">
@@ -108,15 +105,7 @@ const MovieApi = (props: MovieId) => {
               />
             </div>
             <div className="relative ">
-              <Button
-                onClick={handleTrailer}
-                className="bg-inherit absolute bottom-6 right-6 z-30"
-              >
-                <div className="bg-white w-8 h-8 rounded-full pl-2 pt-2">
-                  <Play color="black" />
-                </div>
-                <div>Play trailer 1:30</div>
-              </Button>
+              <div className="absolute z-30 bottom-3 right-3 bg-white rounded-2xl"><Trailer movieId={movieId}/></div>
               <div className=" overflow-hidden w-[375px] lg:w-[760px] h-[211px] lg:h-[428px] lg:rounded">
                 <Image
                   src={`${TMDB_IMAGE_SERVICE_URL}/original/${movieDetail.backdrop_path}`}

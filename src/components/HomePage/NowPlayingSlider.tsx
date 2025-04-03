@@ -14,13 +14,6 @@ import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import Trailer from "../MovieDetail/Trailer";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { MovieDetail } from "@/app/types";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
@@ -30,13 +23,10 @@ const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 const NowPlayingSlider = () => {
   const { push } = useRouter();
   const [, setError] = useState<string>("");
-  const [, setLoading] = useState<boolean>(false);
   const [nowPlayingData, setNowPlayingData] = useState<MovieDetail[]>([]);
-  const [trailerShow, setTrailerShow] = useState<boolean>(false);
 
   const getMovieData = async () => {
     try {
-      setLoading(true);
       const response = await axios.get(
         `${TMDB_BASE_URL}/movie/now_playing?language=en-US&page=1`,
         {
@@ -46,15 +36,11 @@ const NowPlayingSlider = () => {
         }
       );
       setNowPlayingData(response.data.results);
-      setLoading(false);
     } catch (err) {
       console.log(err);
-      setLoading(false);
       if (axios.isAxiosError(err)) {
         setError(err.response?.data.status_message);
       }
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -62,21 +48,11 @@ const NowPlayingSlider = () => {
     getMovieData();
   }, []);
 
-  const handleTrailer = () => {
-    if (trailerShow === false) {
-      setTrailerShow(true);
-    } else {
-      setTrailerShow(false);
-    }
-  };
-
   return (
     <Carousel>
       <CarouselContent>
         {nowPlayingData.map((movie, index) => (
-          <CarouselItem
-            key={index}
-          >
+          <CarouselItem key={index}>
             <div className=" w-full ">
               <Card>
                 <CardContent className="p-0">
@@ -92,7 +68,7 @@ const NowPlayingSlider = () => {
                         push(`/detail/${movie.id}`);
                       }}
                     />
-                    <div className="static text-foreground lg:absolute lg:top-1/2 lg:left-[140px] lg:-translate-y-1/2 lg:text-white z-10">
+                    <div className="static lg:absolute lg:top-1/2 lg:left-[140px] lg:-translate-y-1/2z-10 bg-transparent text-[#a3b83b] shadow-none">
                       <div className="p-5 space-y-4 lg:p-0">
                         <div className="flex justify-between lg:flex-col lg:space-y-1">
                           <div className="">
@@ -106,7 +82,7 @@ const NowPlayingSlider = () => {
                               className="bg-yellow w-[28px] h-[28px]"
                             />
                             <div className="font-medium">
-                              <div className="text-foreground text-sm lg:text-white">
+                              <div className="text-foreground text-sm">
                                 {movie.vote_average}
                               </div>
                               <div className="text-muted-foreground text-xs">
@@ -118,27 +94,7 @@ const NowPlayingSlider = () => {
                         <p className="w-[302px] text-sm line-clamp-5">
                           {movie.overview}
                         </p>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button
-                              onClick={handleTrailer}
-                              variant="outline"
-                              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2"
-                            >
-                              <Play />
-                              <h4 className="text-sm">Watch Trailer</h4>
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="sm:max-w-[425px]">
-                            <DialogHeader>
-                              <DialogTitle></DialogTitle>
-                            </DialogHeader>
-                            <Trailer
-                              movieId={movie.id}
-                              trailerShow={trailerShow}
-                            />
-                          </DialogContent>
-                        </Dialog>
+                        <Trailer movieId={movie.id} />
                       </div>
                     </div>
                   </div>

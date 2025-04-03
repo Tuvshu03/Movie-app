@@ -36,12 +36,13 @@ export const SearchResultMovies = (props: SearchResultMoviesProps) => {
         }
       );
       setNowPlayingData(response.data.results);
-      setLoading(false);
+      console.log(response.data.results);
     } catch (err) {
-      console.log(err);
-      setLoading(false);
+      console.log("Error:", err);
       if (axios.isAxiosError(err)) {
-        setError(err.response?.data.status_message);
+        setError(err.response?.data.status_message || 'Error fetching movies');
+      } else {
+        setError('An unexpected error occurred');
       }
     } finally {
       setLoading(false);
@@ -49,7 +50,9 @@ export const SearchResultMovies = (props: SearchResultMoviesProps) => {
   };
 
   useEffect(() => {
-    getMovieData();
+    if (searchValue) {
+      getMovieData();
+    }
   }, [searchValue]);
 
   if (loading) {
@@ -62,51 +65,50 @@ export const SearchResultMovies = (props: SearchResultMoviesProps) => {
 
   return (
     searchValue.length > 0 && (
-      <div>
-        {nowPlayingData.slice(0, 5).map((movie) => {
-          return (
-            <CommandItem key={movie.id}>
-            <Card >
-              <CardContent
-                onClick={() => {
-                  push(`/detail/${movie.id}`);
-                  setSearchValue("");
-                }}
-                className="flex gap-x-4 mb-2 p-2 hover:bg-muted hover:rounded-xl border-none"
-              >
-                <Image
-                  src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
-                  width={290}
-                  height={428}
-                  alt="property image"
-                  className="relative overflow-hidden w-[67px] h-[100px] rounded-md"
-                />
-                <div className="flex-1 text-foreground">
-                  <span className="w-48 lg:w-96 truncate text-xl font-semibold">
-                    {movie.title}
-                  </span>
-                  <div className="flex items-center gap-x-1">
-                    <Star
-                      color="#fde047"
-                      fill="#fde047"
-                      className="bg-yellow"
-                    />
-                    <span className="font-medium">{movie.vote_average}/10</span>
-                  </div>
-                  <div className="mt-3 flex justify-between text-sm font-medium">
-                    <h5>{movie.release_date}</h5>
-                    <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2">
-                      see more
-                      <ArrowRight />
+      <div className="bg-secondary mt-5 px-3 py-3 rounded-lg">
+        {nowPlayingData.length > 0 ? (
+          nowPlayingData.slice(0, 5).map((movie) => (
+              <Card key={movie.id}>
+                <CardContent
+                  onClick={() => {
+                    push(`/detail/${movie.id}`);
+                    setSearchValue("");
+                  }}
+                  className="flex gap-x-4 mb-2 p-2 hover:bg-muted hover:rounded-xl border-none"
+                >
+                  <Image
+                    src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
+                    width={290}
+                    height={428}
+                    alt="property image"
+                    className="relative overflow-hidden w-[67px] h-[100px] rounded-md"
+                  />
+                  <div className="flex-1 text-foreground">
+                    <span className="w-48 lg:w-96 truncate text-xl font-semibold">
+                      {movie.title}
+                    </span>
+                    <div className="flex items-center gap-x-1">
+                      <Star
+                        color="#fde047"
+                        fill="#fde047"
+                        className="bg-yellow"
+                      />
+                      <span className="font-medium">{movie.vote_average}/10</span>
+                    </div>
+                    <div className="mt-3 flex justify-between text-sm font-medium">
+                      <h5>{movie.release_date}</h5>
+                      <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2">
+                        see more
+                        <ArrowRight />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card></CommandItem>
-          );
-        })}
-      
-      
+                </CardContent>
+              </Card>
+          ))
+        ) : (
+          <p>No results found</p>
+        )}
       </div>
     )
   );

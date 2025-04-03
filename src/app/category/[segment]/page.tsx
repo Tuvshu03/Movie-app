@@ -81,7 +81,7 @@ const Page = () => {
           {nowPlayingData.length > 0 &&
             nowPlayingData.map((movie, index) => {
               return (
-                <div key={index} className="flex justify-center col-span-1">
+                <div key={index} className="flex justify-center col-span-1 cursor-pointer">
                   <Card
                     onClick={() => {
                       push(`/detail/${movie.id}`);

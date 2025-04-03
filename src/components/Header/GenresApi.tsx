@@ -75,17 +75,17 @@ const GenresApi = () => {
               return (
                 <div
                   key={index}
-                  className="flex rounded-full items-center border"
+                  className="flex rounded-full items-center border cursor-pointer hover:bg-rounded-full"
                 >
                   <DropdownMenuItem
                     onClick={() => {
                       push(`/genre?genresId=${genre.id}`);
                     }}
-                    className="text-sx"
+                    className="text-sx hover:rounded-full cursor-pointer"
                   >
                     {genre.name}
+                    <ChevronRight className="w-4 h-4" />
                   </DropdownMenuItem>
-                  <ChevronRight className="w-4 h-4" />
                 </div>
               );
             })}

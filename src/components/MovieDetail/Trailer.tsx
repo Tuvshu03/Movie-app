@@ -1,17 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "../ui/button";
+import { Play } from "lucide-react";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 
 type MovieId = {
   movieId: number;
-  trailerShow: boolean;
 };
 
 const Trailer = (props: MovieId) => {
-  const { movieId, trailerShow } = props;
+  const { movieId } = props;
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
@@ -56,33 +58,31 @@ const Trailer = (props: MovieId) => {
   }, [id]);
 
   return (
-    <div
-      className={`${
-        trailerShow
-          ? "flex z-30 fixed inset-0 justify-center items-center"
-          : "hidden"
-      }`}
-    >
-        <div className="border rounded-md">
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">
+          <Play />
+          <h4 className="text-sm">Watch Trailer</h4>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="w-full h-1/4 p-0 rounded-2xl">
           {loading && <p>Loading trailer...</p>}
           {error && <p>Error: {error}</p>}
           {trailerUrl ? (
-            <div>
               <iframe
-                width="515"
+                width="455"
                 height="315"
                 src={trailerUrl}
                 title="Movie Trailer"
-                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                className="w-full h-full rounded-lg"
               ></iframe>
-            </div>
           ) : (
             !loading && <p>No trailer available for this movie.</p>
           )}
-        </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 export default Trailer;

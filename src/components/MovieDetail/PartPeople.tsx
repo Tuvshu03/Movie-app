@@ -41,9 +41,7 @@ const PartPeople = (props: MovieId) => {
   useEffect(() => {
     getMovieData();
   }, []);
-
-
-  console.log(movieDetail)
+  
   return (
     <div className="space-y-5 text-foreground mb-8">
       <div className="flex pb-1 gap-10">

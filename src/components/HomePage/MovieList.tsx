@@ -103,7 +103,7 @@ const MovieList = (props: movieView) => {
             return (
               <div
                 key={index}
-                className="flex justify-center col-span-1"
+                className="flex justify-center col-span-1 cursor-pointer"
               >
                 <Card
                   onClick={() => {

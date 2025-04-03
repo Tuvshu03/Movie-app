@@ -112,10 +112,6 @@ const Genre = () => {
       <Skeleton className=" px-5 p-8 flex flex-wrap justify-between"></Skeleton>
     );
   }
-  // useEffect(() => {
-  //   // Use the id (for example, fetch data based on the id)
-  //   console.log('Selected Genre ID:', id);
-  // }, [id]);
 
   return (
     <div className="flex justify-center items-center">
@@ -172,7 +168,7 @@ const Genre = () => {
                       key={index}
                       className="bg-secondary"
                     >
-                      <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden space-y-1 lg:w-[190px]">
+                      <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden space-y-1 lg:w-[190px] cursor-pointer">
                         <div className="flex flex-col justify-center">
                           <Image
                             src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
