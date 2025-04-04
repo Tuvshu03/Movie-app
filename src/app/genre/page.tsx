@@ -113,7 +113,7 @@ const Genre = () => {
   }
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center mt-10">
       <div className="w-full px-5 p-8 xl:w-[1280px] flex flex-wrap justify-between">
         <div className="mb-8 text-2xl font-semibold xl:w-[1280px] xl:h-[36px] xl:mb-10">
           Search Filter
@@ -125,7 +125,7 @@ const Genre = () => {
               See lists of movies by genre
             </div>
           </div>
-          <div className="flex flex-wrap mt-5 gap-3  ">
+          <div className="flex flex-wrap mt-5 gap-3">
             {genres.length > 0 &&
               genres.map((genre) => {
                 const genreId = genre.id.toString();
@@ -134,10 +134,8 @@ const Genre = () => {
                   <div
                     key={genre.id}
                     className={`${
-                      isSelected
-                        ? "bg-black text-white dark:bg-white dark:text-black "
-                        : ""
-                    }h-[20px] border border-gray-500 rounded-full flex justify-between gap-2 items-center p-[10px] text-xs font-semibold cursor-pointer`}
+                      isSelected ? "bg-white text-black" : "bg-black text-white"
+                    } z-30 border border-gray-500 rounded-full flex justify-between gap-2 items-center p-2 text-xs font-semibold cursor-pointer`}
                     onClick={() => renderGenre(genre.id)}
                   >
                     {genre.name}
@@ -151,84 +149,80 @@ const Genre = () => {
               })}
           </div>
         </div>
-        <div className="flex flex-col justify-center items-start ">
+        <div className="flex flex-col justify-center items-start gap-5">
           <div className="text-xl font-semibold mt-8 xl:mt-0">
-            {totalResults} titles{" "}
+            {totalResults} title
           </div>
-          <div className="flex flex-col items-end ">
-            <div className="w-[350px] sm:w-[806px] h-auto justify-items-center items-between gap-4 sm:gap-[31.2px] my-10 lg:grid-cols">
-              {movies.length > 0 &&
-                movies.map((movie, index) => {
-                  return (
-                    <Card
-                      onClick={() => {
-                        push(`/detail/${movie.id}`);
-                      }}
-                      key={index}
-                      className="bg-secondary"
-                    >
-                      <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden space-y-1 lg:w-[190px] cursor-pointer">
-                        <div className="flex flex-col justify-center">
-                          <Image
-                            src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
-                            width={157.5}
-                            height={233.1}
-                            alt="property image"
-                            className="overflow-hidden w-full"
+          <div className="grid grid-cols-4 gap-6">
+            {movies.length > 0 &&
+              movies.map((movie, index) => {
+                return (
+                  <Card
+                    onClick={() => {
+                      push(`/detail/${movie.id}`);
+                    }}
+                    key={index}
+                    className="bg-secondary"
+                  >
+                    <CardContent className="p-0 w-[157.5px] bg-zinc-500 overflow-hidden rounded-lg bg-hidden space-y-1 lg:w-[190px] cursor-pointer">
+                      <div className="flex flex-col justify-center">
+                        <Image
+                          src={`${TMDB_IMAGE_SERVICE_URL}/original/${movie.poster_path}`}
+                          width={157.5}
+                          height={233.1}
+                          alt="property image"
+                          className="overflow-hidden w-full"
+                        />
+                        <div className="flex pl-2 mt-2">
+                          <Star
+                            color="#fde047"
+                            fill="#fde047"
+                            className="bg-yellow"
                           />
-                          <div className="flex pl-2 mt-2">
-                            <Star
-                              color="#fde047"
-                              fill="#fde047"
-                              className="bg-yellow"
-                            />
-                            <span>{movie.vote_average}/10</span>
-                          </div>
-                          <div className="w-full text-sm overflow-hidden pl-2 mb-2 mt-1">
-                            {movie.title}
-                          </div>
+                          <span>{movie.vote_average}/10</span>
                         </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-            </div>
-            <div className="xl:w-[110px] xl:h-[40px] flex justify-end items-end xl:mr-10">
-              <Pagination className="w-auto float-right">
-                <PaginationContent className="">
-                  <PaginationItem>
-                    <PaginationPrevious
-                      className={`${
-                        currentPage === 1 && "opacity-50 cursor-default"
-                      }`}
-                      onClick={() => handlePageChange(currentPage - 1)}
-                    />
-                  </PaginationItem>
-
-                  {[...Array(totalPage).keys()]
-                    .slice(startPage, endPage)
-                    .map((pageNum) => (
-                      <PaginationItem key={pageNum + 1}>
-                        <PaginationLink
-                          onClick={() => handlePageChange(pageNum + 1)}
-                          isActive={currentPage === pageNum + 1}
-                        >
-                          {pageNum + 1}
-                        </PaginationLink>
-                      </PaginationItem>
-                    ))}
-                  <PaginationItem>
-                    <PaginationNext
-                      className={`${
-                        currentPage === totalPage && "opacity-50 cursor-default"
-                      }`}
-                      onClick={() => handlePageChange(currentPage + 1)}
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
+                        <div className="w-full text-sm overflow-hidden pl-2 mb-2 mt-1">
+                          {movie.title}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
           </div>
+          <Pagination className="w-auto float-right">
+            <PaginationContent className="">
+              <PaginationItem>
+                <PaginationPrevious
+                  className={`${
+                    currentPage === 1 && "opacity-50 cursor-default"
+                  }`}
+                  onClick={() => handlePageChange(currentPage - 1)}
+                />
+              </PaginationItem>
+
+              {[...Array(totalPage).keys()]
+                .slice(startPage, endPage)
+                .map((pageNum) => (
+                  <PaginationItem key={pageNum + 1}>
+                    <PaginationLink
+                      onClick={() => handlePageChange(pageNum + 1)}
+                      isActive={currentPage === pageNum + 1}
+                    >
+                      {pageNum + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+              <PaginationItem>
+                <PaginationNext
+                  className={`${
+                    currentPage === totalPage && "opacity-50 cursor-default"
+                  }`}
+                  onClick={() => handlePageChange(currentPage + 1)}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </div>

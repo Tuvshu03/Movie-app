@@ -43,57 +43,65 @@ const PartPeople = (props: MovieId) => {
 
   useEffect(() => {
     getMovieData();
-  }, []);
-  
-  if(loading){
-    return <Skeleton><Loader/></Skeleton>
-  }
+  }, [movieId]);
+
   return (
     <div className="space-y-5 text-foreground mb-8">
       <div className="flex pb-1 gap-10">
         <div className="font-bold w-16 mr-13">Director</div>
         <div className="flex flex-1 flex-wrap">
-          {movieDetail?.crew
-            ?.filter((crew) => crew.job === "Director")
-            .map((direct) => {
-              return (
-                <div key={direct.id} className="text-black">
-                  {direct.name}
-                  <span className="mx-2">·</span>
-                </div>
-              );
-            })}
+          {loading ? (
+            <Skeleton className="w-24 h-6" />
+          ) : (
+            movieDetail?.crew
+              ?.filter((crew) => crew.job === "Director")
+              .map((direct) => {
+                return (
+                  <div key={direct.id} className="text-black">
+                    {direct.name}
+                    <span className="mx-2">·</span>
+                  </div>
+                );
+              })
+          )}
         </div>
       </div>
       <hr />
       <div className="flex pb-1 gap-10">
         <div className="font-bold w-16 mr-13">Writer</div>
         <div className="flex flex-1 flex-wrap">
-          {" "}
-          {movieDetail?.crew
-            ?.filter((crew) => crew.job === "Writer")
-            .map((write) => {
-              return (
-                <div key={write.id} className="text-black">
-                  {write.name}
-                  <span className="mx-2">·</span>
-                </div>
-              );
-            })}
+          {loading ? (
+            <Skeleton className="w-24 h-6" />
+          ) : (
+            movieDetail?.crew
+              ?.filter((crew) => crew.job === "Writer")
+              .map((write) => {
+                return (
+                  <div key={write.id} className="text-black">
+                    {write.name}
+                    <span className="mx-2">·</span>
+                  </div>
+                );
+              })
+          )}
         </div>
       </div>
       <hr />
       <div className="flex pb-1 gap-10">
         <div className="font-bold w-16 mr-13">Stars</div>
         <div className="flex flex-1 flex-wrap">
-          {movieDetail?.cast?.slice(0, 3).map((cast) => {
-            return (
-              <div key={cast.id} className="">
-                {cast.name}
-                <span className="mx-2">·</span>
-              </div>
-            );
-          })}
+          {loading ? (
+            <Skeleton className="w-24 h-6" />
+          ) : (
+            movieDetail?.cast?.slice(0, 3).map((cast) => {
+              return (
+                <div key={cast.id} className="">
+                  {cast.name}
+                  <span className="mx-2">·</span>
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
       <hr />

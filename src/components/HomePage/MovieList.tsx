@@ -12,11 +12,12 @@ const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
 const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 
-type movieView = {
+type MovieView = {
   name: string;
   endpoint: string;
 };
-const MovieList = (props: movieView) => {
+
+const MovieList = (props: MovieView) => {
   const { name, endpoint } = props;
   const { push } = useRouter();
   const [, setError] = useState<string>("");
@@ -35,58 +36,55 @@ const MovieList = (props: movieView) => {
         }
       );
       setNowPlayingData(response.data.results);
-
       setLoading(false);
     } catch (err) {
       setLoading(false);
       if (axios.isAxiosError(err)) {
         setError(err.response?.data.status_message);
       }
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     getMovieData();
-  }, []);
+  }, [endpoint]);
 
   if (loading) {
-    return <Skeleton>
-          <div className="w-full max-w-7xl justify-center p-0">
-      <div className="flex justify-between mb-9 mt-8 w-full">
-        <div className="text-3xl  font-semibold"></div>
-        <div
-          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2"
-        >
-          <ArrowRight />
+    // Skeleton loading state
+    return (
+      <div className="w-full max-w-7xl justify-center p-0">
+        <div className="flex justify-between mb-9 mt-8 w-full">
+          <div className="text-3xl font-semibold">
+            <Skeleton className="h-8 w-36" />
+          </div>
+          <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2">
+            <ArrowRight />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 justify-center">
+          {[...Array(5)].map((_, index) => (
+            <div key={index} className="flex justify-center col-span-1">
+              <Card className="w-[157.5px] lg:w-[233px] bg-secondary">
+                <CardContent className="p-0 w-full bg-zinc-500 overflow-hidden rounded-lg bg-hidden">
+                  <Skeleton className="w-full h-[233px] rounded-lg" />
+                  <div className="flex pl-2 mt-2">
+                    <Skeleton className="w-6 h-6 rounded-full" />
+                    <Skeleton className="w-16 h-4 ml-2" />
+                  </div>
+                  <Skeleton className="w-24 h-4 mt-1 pl-2" />
+                </CardContent>
+              </Card>
+            </div>
+          ))}
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 justify-center">
-        {nowPlayingData.length > 0 &&
-          nowPlayingData.map((movie, index) => {
-            return (
-              <div
-                key={index}
-                className="flex justify-center col-span-1"
-              >
-                <Card
-                  className="w-[157.5px] lg:w-[233px] bg-secondary">
-                  <CardContent className="p-0 w-full bg-zinc-500 overflow-hidden rounded-lg bg-hidden">
-                  </CardContent>
-                </Card>
-              </div>
-            );
-          })}
-      </div>
-    </div>
-    </Skeleton>;
+    );
   }
 
   return (
     <div className="w-full max-w-7xl justify-center p-0">
       <div className="flex justify-between mb-9 mt-8 w-full">
-        <div className="text-3xl  font-semibold">{name}</div>
+        <div className="text-3xl font-semibold">{name}</div>
         <div
           onClick={() => {
             push(`/category/${endpoint}`);
@@ -101,10 +99,7 @@ const MovieList = (props: movieView) => {
         {nowPlayingData.length > 0 &&
           nowPlayingData.map((movie, index) => {
             return (
-              <div
-                key={index}
-                className="flex justify-center col-span-1 cursor-pointer"
-              >
+              <div key={index} className="flex justify-center col-span-1 cursor-pointer">
                 <Card
                   onClick={() => {
                     push(`/detail/${movie.id}`);
@@ -118,7 +113,7 @@ const MovieList = (props: movieView) => {
                         width={157.5}
                         height={233}
                         alt="property image"
-                        className="overflow-hidden object-cover rounded-bl-none w-full "
+                        className="overflow-hidden object-cover rounded-bl-none w-full"
                       />
                       <div className="flex pl-2 mt-2">
                         <Star
@@ -140,6 +135,6 @@ const MovieList = (props: movieView) => {
       </div>
     </div>
   );
-}
+};
 
 export default MovieList;

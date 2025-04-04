@@ -5,7 +5,6 @@ import { Star, ArrowRight, ArrowLeft } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Pagination,
   PaginationContent,
@@ -30,12 +29,12 @@ const Page = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const params = useParams();
   const endpoint = params.segment;
-  
+
   const getMovieData = async (page: number) => {
+    setLoading(true);
     try {
-      setLoading(true);
       const response = await axios.get(
-        `${TMDB_BASE_URL}/movie/${endpoint}?language=en-US&page=${currentPage}`,
+        `${TMDB_BASE_URL}/movie/${endpoint}?language=en-US&page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${TMDB_API_TOKEN}`,
@@ -43,108 +42,128 @@ const Page = () => {
         }
       );
       setNowPlayingData(response.data.results);
-      console.log(response.data.results);
       setTotalPages(response.data.total_pages);
-      console.log(response.data.total_pages);
-      setLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
+      setError("An error occurred while fetching data.");
+    } finally {
       setLoading(false);
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data.status_message);
-      }
     }
   };
 
   useEffect(() => {
     getMovieData(currentPage);
-  }, [currentPage])
-  let name = "sad"
-  if(endpoint==="upcoming"){
-    name = "Up Coming"}
-  else if(endpoint==="popular"){
-    name = "Popular"
-  }
-  else{
-    name="Top Rated"
+  }, [currentPage]);
+
+  let name = "Now Playing";
+  if (endpoint === "upcoming") {
+    name = "Upcoming";
+  } else if (endpoint === "popular") {
+    name = "Popular";
+  } else if (endpoint === "top_rated") {
+    name = "Top Rated";
   }
 
   if (loading) {
-    return <Skeleton className="h-1/2 w-1/2" />;
-  }
-
-  return (
-    <div className="mt-16 w-full max-w-7xl flex flex-col  items-center mx-auto p-0">
-      <div className="w-full max-w-7xl justify-center p-0">
-        <div className="mb-9 mt-8 text-3xl font-semibold">{name}</div>
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 justify-center">
-          {nowPlayingData.length > 0 &&
-            nowPlayingData.map((movie, index) => {
-              return (
-                <div key={index} className="flex justify-center col-span-1 cursor-pointer">
-                  <Card
-                    onClick={() => {
-                      push(`/detail/${movie.id}`);
-                    }}
-                    className="w-[157.5px] lg:w-[233px] bg-secondary"
-                  >
+    return (
+      <div className="animate-pulse">
+        Loading...
+        <div className="mt-16 w-full max-w-7xl flex flex-col items-center mx-auto p-0">
+          <div className="w-full max-w-7xl justify-center p-0">
+            <div className="mb-9 mt-8 text-3xl font-semibold">{name}</div>
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 justify-center">
+              {[...Array(10)].map((_, index) => (
+                <div key={index} className="flex justify-center col-span-1">
+                  <Card className="w-[157.5px] lg:w-[233px] bg-secondary">
                     <CardContent className="p-0 w-full bg-zinc-500 overflow-hidden rounded-lg bg-hidden">
                       <div className="flex flex-col justify-center">
-                        <Image
-                          src={`${TMDB_IMAGE_SERVICE_URL}/w500${movie.poster_path}`}
-                          width={157.5}
-                          height={233}
-                          alt="property image"
-                          className="overflow-hidden rounded-lg w-full"
-                        />
+                        <div className="w-full h-[233px] bg-gray-300 animate-pulse"></div>
                         <div className="flex pl-2 mt-2">
-                          <Star
-                            color="#fde047"
-                            fill="#fde047"
-                            className="bg-yellow"
-                          />
-                          <span>{movie.vote_average}/10</span>
+                          <div className="bg-yellow w-[20px] h-[20px] animate-pulse"></div>
+                          <span className="bg-gray-400 w-16 h-4 animate-pulse"></span>
                         </div>
-                        <div className="w-full text-sm overflow-hidden pl-2 mb-2 mt-1">
-                          {movie.title}
-                        </div>
+                        <div className="w-full text-sm overflow-hidden pl-2 mb-2 mt-1 bg-gray-400 animate-pulse h-5"></div>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
-              );
-            })}
+              ))}
+            </div>
+          </div>
         </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-16 w-full max-w-7xl flex flex-col items-center mx-auto p-0">
+      <div className="w-full max-w-7xl justify-center p-0">
+        <div className="mb-9 mt-8 text-3xl font-semibold">{name}</div>
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 justify-center">
+          {nowPlayingData.length > 0 &&
+            nowPlayingData.map((movie, index) => (
+              <div key={index} className="flex justify-center col-span-1 cursor-pointer">
+                <Card
+                  onClick={() => {
+                    push(`/detail/${movie.id}`);
+                  }}
+                  className="w-[157.5px] lg:w-[233px] bg-secondary"
+                >
+                  <CardContent className="p-0 w-full bg-zinc-500 overflow-hidden rounded-lg bg-hidden">
+                    <div className="flex flex-col justify-center">
+                      <Image
+                        src={`${TMDB_IMAGE_SERVICE_URL}/w500${movie.poster_path}`}
+                        width={157.5}
+                        height={233}
+                        alt="property image"
+                        className="overflow-hidden rounded-lg w-full"
+                      />
+                      <div className="flex pl-2 mt-2">
+                        <Star
+                          color="#fde047"
+                          fill="#fde047"
+                          className="bg-yellow"
+                        />
+                        <span>{movie.vote_average}/10</span>
+                      </div>
+                      <div className="w-full text-sm overflow-hidden pl-2 mb-2 mt-1">
+                        {movie.title}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+        </div>
+
         <Pagination className="mt-5">
           <PaginationContent>
             <PaginationPrevious
-              onClick={() => setCurrentPage(currentPage - 1)}
-              aria-disabled={currentPage === 0}
-            >
-              <ArrowRight />
-            </PaginationPrevious>
-
-            {[...Array(totalPages)]
-              .slice(currentPage, currentPage + 1)
-              .map((_, index) => {
-                const pageNum = index + 1;
-                return (
-                  <PaginationItem key={pageNum}>
-                    <PaginationLink
-                      onClick={() => setCurrentPage(pageNum)}
-                      className={currentPage === pageNum ? "" : ""}
-                    >
-                      {currentPage}
-                    </PaginationLink>
-                  </PaginationItem>
-                );
-              })}
-
-            <PaginationNext
-              onClick={() => setCurrentPage(currentPage + 1)}
-              aria-disabled={currentPage == totalPages}
+              onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+              aria-disabled={currentPage === 1}
             >
               <ArrowLeft />
+            </PaginationPrevious>
+
+            {[...Array(totalPages)].map((_, index) => {
+              const pageNum = index + 1;
+              return (
+                <PaginationItem key={pageNum}>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(pageNum)}
+                    className={currentPage === pageNum ? "font-bold" : ""}
+                  >
+                    {pageNum}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            })}
+
+            <PaginationNext
+              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+              aria-disabled={currentPage === totalPages}
+            >
+              <ArrowRight />
             </PaginationNext>
           </PaginationContent>
         </Pagination>

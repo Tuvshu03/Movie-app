@@ -7,6 +7,7 @@ import PartPeople from "./PartPeople";
 import MoreLike from "./MoreLike";
 import { MovieDetail, MovieId } from "@/app/types";
 import Trailer from "./Trailer";
+import { Skeleton } from "../ui/skeleton";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -19,7 +20,7 @@ const MovieApi = (props: MovieId) => {
   const [movieDetail, setMovieDetail] = useState<MovieDetail>(
     {} as MovieDetail
   );
-  const [trailerShow, setTrailerShow] = useState<boolean>(false);
+
   const getMovieData = async () => {
     try {
       setLoading(true);
@@ -46,21 +47,45 @@ const MovieApi = (props: MovieId) => {
 
   useEffect(() => {
     getMovieData();
-  }, []);
+  }, [movieId]);
 
-  const handleTrailer = () => {
-    if (trailerShow === false) {
-      setTrailerShow(true);
-    } else {
-      setTrailerShow(false);
-    }
-  };
   const runtime = movieDetail.runtime;
-  const hour = Math.floor(runtime/60);
+  const hour = Math.floor(runtime / 60);
   const minute = runtime - hour * 60;
+
   return (
     <div className="page-detail text-foreground mt-10">
-      {movieDetail.id ? (
+      {loading ? (
+        <div className="max-w-6xl">
+          <div className="mt-8 mb-4 px-5 flex justify-between lg:mt-[52px] lg:mb-6 lg:px-0">
+            <div className="space-y-1">
+              <Skeleton className="w-52 h-8" />
+              <Skeleton className="w-36 h-6" />
+            </div>
+            <div className="flex flex-col justify-center">
+              <Skeleton className="w-24 h-6" />
+              <Skeleton className="w-12 h-6" />
+            </div>
+          </div>
+          <div className="flex justify-between mb-8">
+            <Skeleton className="w-[290px] h-[428px]" />
+            <div className="relative ">
+              <Skeleton className="w-[760px] h-[428px]" />
+            </div>
+          </div>
+          <div className="px-5 lg:px-0">
+            <div className="flex gap-x-[34px] lg:block">
+              <Skeleton className="w-[100px] h-[148px]" />
+              <div className="space-y-5 mb-5">
+                <Skeleton className="w-32 h-6" />
+                <Skeleton className="w-full h-4" />
+              </div>
+            </div>
+            <Skeleton className="w-full h-12" />
+            <Skeleton className="w-full h-12" />
+          </div>
+        </div>
+      ) : movieDetail.id ? (
         <div className="max-w-6xl">
           <div className="mt-8 mb-4 px-5 flex justify-between lg:mt-[52px] lg:mb-6 lg:px-0">
             <div className="space-y-1">
@@ -105,8 +130,10 @@ const MovieApi = (props: MovieId) => {
               />
             </div>
             <div className="relative ">
-              <div className="absolute z-30 bottom-3 right-3 bg-white rounded-2xl"><Trailer movieId={movieId}/></div>
-              <div className=" overflow-hidden w-[375px] lg:w-[760px] h-[211px] lg:h-[428px] lg:rounded">
+              <div className="absolute z-30 bottom-3 right-3 bg-white rounded-2xl">
+                <Trailer movieId={movieId} />
+              </div>
+              <div className="overflow-hidden w-[375px] lg:w-[760px] h-[211px] lg:h-[428px] lg:rounded">
                 <Image
                   src={`${TMDB_IMAGE_SERVICE_URL}/original/${movieDetail.backdrop_path}`}
                   width={760}
@@ -114,7 +141,6 @@ const MovieApi = (props: MovieId) => {
                   alt="property image"
                   className="overflow-hidden w-full"
                 />
-
                 <div className="absolute inset-0 z-10 transition-all duration-300 group-hover:bg-primary/30"></div>
               </div>
             </div>
@@ -153,7 +179,7 @@ const MovieApi = (props: MovieId) => {
           </div>
         </div>
       ) : (
-        <div>Loading</div>
+        <div>Loading...</div>
       )}
     </div>
   );

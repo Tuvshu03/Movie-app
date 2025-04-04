@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Star} from "lucide-react";
+import { Star } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
+import Skeleton from "react-loading-skeleton";
 import {
   Carousel,
   CarouselContent,
@@ -22,9 +23,11 @@ const TMDB_IMAGE_SERVICE_URL = process.env.TMDB_IMAGE_SERVICE_URL;
 const NowPlayingSlider = () => {
   const { push } = useRouter();
   const [, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [nowPlayingData, setNowPlayingData] = useState<MovieDetail[]>([]);
 
   const getMovieData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `${TMDB_BASE_URL}/movie/now_playing?language=en-US&page=1`,
@@ -36,10 +39,13 @@ const NowPlayingSlider = () => {
       );
       setNowPlayingData(response.data.results);
     } catch (err) {
+      setLoading(false);
       console.log(err);
       if (axios.isAxiosError(err)) {
         setError(err.response?.data.status_message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,12 +53,51 @@ const NowPlayingSlider = () => {
     getMovieData();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="w-full">
+        {/* Display Skeleton until data is loaded */}
+        <Carousel>
+          <CarouselContent>
+            {[...Array(5)].map((_, index) => (
+              <CarouselItem key={index}>
+                <div className="w-full">
+                  <Card>
+                    <CardContent className="p-0">
+                      <div className="relative w-full p-0">
+                        {/* Skeleton for movie image */}
+                        <Skeleton width={600} height={600} />
+                        <div className="p-5 space-y-4">
+                          <div className="flex justify-between">
+                            <div>
+                              <Skeleton width={150} />
+                            </div>
+                            <div className="flex items-center gap-x-1">
+                              <Skeleton width={30} height={30} circle />
+                              <Skeleton width={50} />
+                            </div>
+                          </div>
+                          <Skeleton width={200} />
+                          <Skeleton width={100} height={40} />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </div>
+    );
+  }
+
   return (
     <Carousel>
       <CarouselContent>
         {nowPlayingData.map((movie, index) => (
           <CarouselItem key={index}>
-            <div className=" w-full ">
+            <div className="w-full">
               <Card>
                 <CardContent className="p-0">
                   <div className="relative w-full p-0">
@@ -67,12 +112,12 @@ const NowPlayingSlider = () => {
                         push(`/detail/${movie.id}`);
                       }}
                     />
-                    <div className="lg:absolute lg:top-1/2 lg:left-1/4 lg:-translate-y-1/2z-10 bg-opacity-95 text-secondary-foreground">
+                    <div className="lg:absolute lg:top-1/2 lg:left-1/4 lg:-translate-y-1/2 bg-opacity-95 text-secondary-foreground">
                       <div className="p-5 space-y-4 lg:p-0">
                         <div className="flex justify-between lg:flex-col lg:space-y-1">
-                          <div className="">
+                          <div>
                             <h4>Now Playing:</h4>
-                            <h3 className="">{movie.title}</h3>
+                            <h3>{movie.title}</h3>
                           </div>
                           <div className="flex items-center gap-x-1">
                             <Star
@@ -81,12 +126,8 @@ const NowPlayingSlider = () => {
                               className="bg-yellow w-[28px] h-[28px]"
                             />
                             <div className="font-medium">
-                              <div className="text-sm">
-                                {movie.vote_average}
-                              </div>
-                              <div className="text-muted-foreground text-xs">
-                                10
-                              </div>
+                              <div className="text-sm">{movie.vote_average}</div>
+                              <div className="text-muted-foreground text-xs">/10</div>
                             </div>
                           </div>
                         </div>

@@ -11,7 +11,7 @@ import {
 } from "../ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
-import { Genre} from "@/app/types";
+import { Genre } from "@/app/types";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
@@ -52,9 +52,7 @@ const GenresApi = () => {
 
   if (loading)
     return (
-      <Skeleton className="p-5 w-[335px] lg:justifty-center sm:w-[577px]">
-        <div className=""></div>
-      </Skeleton>
+      <Skeleton className="p-5 w-[335px] lg:justifty-center sm:w-[577px]"></Skeleton>
     );
 
   return (
