@@ -23,7 +23,6 @@ export default function Home() {
   return (
     <div className="w-screen mt-5">
       <SkeletonTheme>
-        {" "}
         <NowPlayingSlider />
         <div className="flex flex-col items-center">
           {movieGenres.map((item, index) => (
